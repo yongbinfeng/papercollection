@@ -123,7 +123,7 @@
     be separated into scintillation and Cherenkov components by exploiting the polarization
     of the Cherenkov component. These studies were carried out in view of the possible
     application of such crystals in dual-readout calorimeters.
-  notes: ''
+  notes: 'Cherenkov photon polarized preserved in the first part of the showers in BSO crystal.'
 - title: New result from the DREAM project
   year: 2011
   authors: G. Gaudio
@@ -141,7 +141,7 @@
     separation. Crystals with Mo concentrations of 0.1-1.0% are found suitable for
     dual-readout applications.
   notes: ''
-- title: The DREAM project \u2014 Towards the ultimate in calorimetry
+- title: The DREAM project -- Towards the ultimate in calorimetry
   year: 2010
   authors: R. Wigmans
   journal: NIM A 617 (2010) 129
@@ -184,7 +184,7 @@
     contribute through elastic scattering off protons in scintillating fibers, producing
     an exponential tail with a ~25 ns time constant. The neutron contribution increases
     with distance from the shower axis and is absent from Cherenkov signals.
-  notes: ''
+  notes: 'Neutron signal observed in the late part of the scintillation shower time profile'
 - title: Luminescence and scintillation characteristics of heavily Pr\u00b3\u207a-doped
     PbWO\u2084 single crystals
   year: 2008
@@ -280,7 +280,7 @@
     whose fluctuations dominate hadronic energy resolution. The dual-readout method
     eliminates these fluctuation effects. Results are presented for negative pions
     from 20 to 300 GeV.
-  notes: ''
+  notes: 'First (?) DR paper; response corrected; distribution more Gaussian; some leakage effect.'
 - title: Electron detection with a dual-readout calorimeter
   year: 2005
   authors: N. Akchurin et al.

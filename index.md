@@ -97,6 +97,8 @@ layout: default
 
 A collection of papers I find interesting and want to keep handy for future reference.
 
+<p style="font-size: 0.85em; color: #666; margin-top: -10px; margin-bottom: 25px;"><em>Last updated: {{ site.time | date: "%B %-d, %Y" }}</em></p>
+
 <input type="text" id="searchInput" onkeyup="searchPapers()" placeholder="Search for papers..." style="width: 100%; padding: 12px; margin-bottom: 20px; border: 1px solid #ccc; border-radius: 4px; font-size: 16px;">
 
 <div class="category-nav">

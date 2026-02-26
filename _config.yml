@@ -1,0 +1,5 @@
+title: "Paper Collection"
+description: "Some fun papers.."
+theme: jekyll-theme-minimal
+
+data_dir: "data"

@@ -113,6 +113,9 @@ A collection of papers I find interesting and want to keep handy for future refe
 
 {% for dataset in site.data %}
   {% assign category_slug = dataset[0] %}
+
+  {% if category_slug == 'dream_publications' %}{% continue %}{% endif %}
+
   {% assign category_papers = dataset[1] %}
   {% assign category_name = category_slug | replace: '_', ' ' | capitalize %}
 

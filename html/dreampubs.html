@@ -1,239 +1,118 @@
-<!DOCTYPE html>
-<html lang="en">
+---
+layout: default
+---
 
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>DREAM / RD52 Publications</title>
-  <style>
-    /* Base styles matching the Jekyll Minimal theme */
-    body {
-      font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
-      color: #333;
-      background-color: #fff;
-      line-height: 1.6;
-      margin: 0;
-      padding: 0;
+<style>
+  html {
+    scroll-behavior: smooth;
+  }
+
+  header {
+    display: none !important;
+  }
+
+  footer {
+    display: none !important;
+  }
+
+  section {
+    width: 100% !important;
+    max-width: 1000px !important;
+    float: none !important;
+    margin: 0 auto !important;
+    padding-top: 40px !important;
+  }
+
+  .wrapper {
+    width: 95% !important;
+    max-width: 1100px !important;
+  }
+</style>
+
+<script>
+  MathJax = {
+    tex: {
+      inlineMath: [['$', '$'], ['\\(', '\\)']],
+      displayMath: [['$$', '$$'], ['\\[', '\\]']]
     }
+  };
+</script>
+<script async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js"></script>
 
-    /* Main Container to match the 1000px width of your index.md */
-    .container {
-      width: 100%;
-      max-width: 1000px;
-      margin: 0 auto;
-      padding: 40px 20px;
-      box-sizing: border-box;
+<div style="margin-bottom: 20px;">
+  <a href="../index.html" style="color: #0366d6; text-decoration: none; font-weight: bold; font-size: 0.95em;">← Back to
+    Main Collection</a>
+</div>
+
+# DREAM / RD52 Publications
+
+List of papers from the DREAM and RD52 dual-readout calorimetry projects at CERN.
+
+<input type="text" id="searchInput" onkeyup="searchPapers()" placeholder="Search publications..."
+  style="width: 100%; padding: 12px; margin-bottom: 20px; border: 1px solid #ccc; border-radius: 4px; font-size: 16px;">
+
+<div id="paperList">
+  <ul style="list-style-type: none; padding-left: 0;">
+
+    {% assign dream_papers = site.data.dream_publications | sort: "year" | reverse %}
+
+    {% for paper in dream_papers %}
+    <li class="paper-item"
+      style="margin-bottom: 15px; padding: 15px; border: 1px solid #eaeaea; border-radius: 6px; background-color: #fcfcfc;">
+      <strong style="font-size: 1.1em;">
+        <a href="{{ paper.url }}" target="_blank" class="paper-title" style="color: #0366d6; text-decoration: none;">{{
+          paper.title }}</a>
+      </strong> ({{ paper.year }})<br>
+
+      {% if paper.authors %}
+      <div style="font-size: 0.9em; color: #555; margin-top: 5px; margin-bottom: 5px;">
+        <em>{{ paper.authors }}</em><br>
+        Published in: <strong>{{ paper.journal }}</strong>
+      </div>
+      {% endif %}
+
+      {% if paper.notes != "" and paper.notes %}
+      <div class="paper-notes" style="margin-top: 8px; font-size: 0.95em; color: #555;">
+        <strong>Notes:</strong> {{ paper.notes }}
+      </div>
+      {% endif %}
+
+      {% if paper.summary %}
+      <details style="margin-top: 12px; padding-top: 10px; border-top: 1px dashed #ccc;">
+        <summary style="font-size: 0.9em; color: #0366d6; cursor: pointer; font-weight: bold;">
+          View Abstract
+        </summary>
+        <div
+          style="margin-top: 10px; padding: 12px; background-color: #fff; border-radius: 4px; border: 1px solid #e1e4e8;">
+          <p style="font-size: 0.95em; color: #333; margin: 0; line-height: 1.5;">
+            {{ paper.summary }}
+          </p>
+        </div>
+      </details>
+      {% endif %}
+    </li>
+    {% endfor %}
+  </ul>
+</div>
+
+<p style="font-size: 0.85em; color: #777; margin-top: 40px; text-align: center;">
+  Source: <a href="http://www.phys.ttu.edu/~dream/resources/publications/" target="_blank"
+    style="color:#0366d6;">phys.ttu.edu/~dream/resources/publications/</a><br>
+  <em>Last updated: {{ site.time | date: "%B %-d, %Y" }}</em>
+</p>
+
+<script>
+  function searchPapers() {
+    let input = document.getElementById('searchInput').value.toLowerCase();
+    let paperItems = document.getElementsByClassName('paper-item');
+
+    for (let i = 0; i < paperItems.length; i++) {
+      let text = paperItems[i].innerText.toLowerCase();
+      if (text.includes(input)) {
+        paperItems[i].style.display = "";
+      } else {
+        paperItems[i].style.display = "none";
+      }
     }
-
-    /* Typography */
-    h1 {
-      color: #111;
-      border-bottom: 1px solid #eaeaea;
-      padding-bottom: 10px;
-      margin-bottom: 10px;
-      margin-top: 0;
-    }
-
-    p {
-      color: #555;
-      margin-bottom: 20px;
-    }
-
-    /* Back Link */
-    .back-link {
-      display: inline-block;
-      margin-bottom: 20px;
-      color: #0366d6;
-      text-decoration: none;
-      font-weight: bold;
-      font-size: 0.95em;
-    }
-
-    .back-link:hover {
-      text-decoration: underline;
-    }
-
-    /* Button Styling (Mirrors your Category Nav buttons) */
-    .action-btn {
-      background-color: #f0f4f8;
-      color: #0366d6;
-      padding: 6px 14px;
-      border-radius: 20px;
-      text-decoration: none;
-      font-size: 0.85em;
-      font-weight: bold;
-      border: 1px solid #d1d5da;
-      transition: background-color 0.2s ease;
-      cursor: pointer;
-      display: inline-block;
-      margin-right: 5px;
-      margin-top: 8px;
-    }
-
-    .action-btn:hover {
-      background-color: #e1e4e8;
-      text-decoration: none;
-    }
-
-    /* Paper Item Styling (Mirrors your index.md list items) */
-    .paper-item {
-      margin-bottom: 15px;
-      padding: 15px;
-      border: 1px solid #eaeaea;
-      border-radius: 6px;
-      background-color: #fcfcfc;
-      list-style-type: none;
-    }
-
-    .paper-title {
-      color: #0366d6;
-      text-decoration: none;
-    }
-
-    .paper-title:hover {
-      text-decoration: underline;
-    }
-
-    /* Hidden Abstract Panel */
-    .abs-panel {
-      display: none;
-      margin-top: 12px;
-      padding-top: 10px;
-      border-top: 1px dashed #ccc;
-      font-size: 0.95em;
-      color: #555;
-    }
-
-    .abs-panel.open {
-      display: block;
-    }
-
-    footer {
-      margin-top: 40px;
-      padding-top: 20px;
-      border-top: 1px solid #eaeaea;
-      color: #777;
-      font-size: 0.85em;
-      text-align: center;
-    }
-
-    footer a {
-      color: #0366d6;
-      text-decoration: none;
-    }
-
-    footer a:hover {
-      text-decoration: underline;
-    }
-  </style>
-</head>
-
-<body>
-
-  <div class="container">
-    <a href="../index.html" class="back-link">← Back to Paper Collection</a>
-
-    <header>
-      <h1>DREAM / RD52 Publications</h1>
-      <p>Complete list of refereed papers from the DREAM and RD52 dual-readout calorimetry projects. (2001 -
-        2018)</p>
-    </header>
-
-    <div style="margin-bottom: 25px;">
-      <button class="action-btn" onclick="toggleAll(true)">Expand All Abstracts</button>
-      <button class="action-btn" onclick="toggleAll(false)">Collapse All</button>
-    </div>
-
-    <div id="paper-list"></div>
-
-    <footer>
-      Source: <a href="http://www.phys.ttu.edu/~dream/resources/publications/"
-        target="_blank">phys.ttu.edu/~dream/resources/publications/</a> &middot; DREAM/RD52 Project
-    </footer>
-  </div>
-
-  <script>
-    const BASE = 'http://www.phys.ttu.edu/~dream/resources/publications/';
-
-    // [The paper data array remains exactly the same]
-    const papers = [
-      { n: 35, year: 2018, authors: 'S. Lee, J. Hauptman, R. Wigmans', title: 'Where the energy goes?', journal: 'Physics World Focus on Instruments and Vacuum, August 2018', pdf: null, link: 'https://physicsworld.com/a/where-the-energy-goes/', linkLabel: 'Article', abstract: null },
-      { n: 34, year: 2018, authors: 'M. Antonello et al.', title: 'Tests of a dual-readout fiber calorimeter with SiPM light sensors', journal: 'NIM A 899 (2018) 52', pdf: '1-s2.0-S0168900218306077-main.pdf', abstract: 'The first tests of a dual-readout fiber calorimeter in which silicon photomultipliers are used to sense the scintillation and Cherenkov light signals are described. The main challenge is minimizing optical crosstalk between the two fiber types, which carry light signals differing in intensity by about a factor of 60. The Cherenkov light yield was measured to be about twice that of previously tested PMT-based configurations. The lateral profiles of electromagnetic showers were measured on a millimeter scale and significant differences were found between the scintillating and Cherenkov fiber profiles.' },
-      { n: 33, year: 2018, authors: 'S. Lee, M. Livan, R. Wigmans', title: 'Dual-Readout Calorimetry', journal: 'Rev. Mod. Phys. 90 (2018) 025002', pdf: null, link: 'https://journals.aps.org/rmp/abstract/10.1103/RevModPhys.90.025002', linkLabel: 'Journal', abstract: 'In the past 20 years, dual-readout calorimetry has emerged as a technique for measuring the properties of high-energy hadrons and hadron jets that offers considerable advantages compared with instruments currently used at the high-energy frontier. The status of this experimental technique and the challenges faced for its further development are reviewed.' },
-      { n: 32, year: 2018, authors: 'S. Lee, M. Livan, R. Wigmans', title: 'On the limits of the hadronic energy resolution of calorimeters', journal: 'NIM A 882 (2018) 148', pdf: '1-s2.0-S0168900217311762-main.pdf', abstract: 'The root causes of the typically poor hadronic calorimeter performance compared to electromagnetic detection are investigated, and two remedies are evaluated: compensation and dual readout. The dual-readout approach is shown to be more promising, as evidenced by experimental results.' },
-      { n: 31, year: 2017, authors: 'S. Lee et al.', title: 'Hadron detection with a dual-readout fiber calorimeter', journal: 'NIM A 866 (2017) 76', pdf: '1-s2.0-S0168900217305703-main.pdf', abstract: 'Measurements of the response functions of a lead-based dual-readout fiber calorimeter (1350 kg) for pions, protons and jets with energies from 20 to 180 GeV are described. The calorimeter, calibrated with electrons, reconstructs pion and proton energies to within a few percent at all energies using only its own signals.' },
-      { n: 30, year: 2016, authors: 'R. Wigmans', title: 'New results from the RD52 project', journal: 'NIM A 824 (2016) 721', pdf: '824_721.pdf', abstract: null },
-      { n: 29, year: 2016, authors: 'A. Cardini et al.', title: 'The small-angle performance of a dual-readout fiber calorimeter', journal: 'NIM A 808 (2016) 41', pdf: '808_41.pdf', abstract: null },
-      { n: 28, year: 2014, authors: 'N. Akchurin et al.', title: 'Lessons from Monte Carlo simulations of the performance of a dual-readout fiber calorimeter', journal: 'NIM A 762 (2014) 100', pdf: '762_100.pdf', abstract: 'Detailed GEANT4-based Monte Carlo simulations of the RD52 dual-readout fiber calorimeter are reported and compared with published measurements. The comparison reveals subtle details of shower development in this detector, allows performance predictions for larger detectors, and uncovers inadequacies in GEANT4 packages for hadronic showers and Cherenkov signals from electromagnetic showers.' },
-      { n: 27, year: 2014, authors: 'N. Akchurin et al.', title: 'Particle identification in the longitudinally unsegmented RD52 calorimeter', journal: 'NIM A 735 (2014) 120', pdf: 'RD52_PID.pdf', abstract: 'Particle identification in the longitudinally unsegmented RD52 dual-readout calorimeter is investigated using differences in scintillation and Cherenkov shower development, radial shower profiles, and signal time structure. At 60 GeV, electrons are correctly identified in 99.8% of cases while eliminating 99.8% of hadrons.' },
-      { n: 26, year: 2014, authors: 'N. Akchurin et al.', title: 'The electromagnetic performance of the RD52 fiber calorimeter', journal: 'NIM A 735 (2014) 130', pdf: 'RD52_em.pdf', abstract: 'The electromagnetic performance of the RD52 dual-readout fiber calorimeter is reported and compared with other instruments built with similar goals. The calorimeter detects both electromagnetic and hadronic showers via simultaneous scintillation and Cherenkov readout, enabling superior hadronic energy resolution.' },
-      { n: 25, year: 2012, authors: 'N. Akchurin et al.', title: 'Detection of electron showers in Dual-Readout crystal calorimeters', journal: 'NIM A 686 (2012) 125', pdf: '686_125.pdf', abstract: 'Matrices of BGO and PbWO4 crystals are studied as electromagnetic calorimeters with simultaneous scintillation and Cherenkov readout. The Cherenkov yield from BGO is sufficient for dual-readout calorimetry. Differences in the time structure of the two signal types are exploited to achieve event-by-event signal separation.' },
-      { n: 24, year: 2011, authors: 'N. Akchurin et al.', title: 'A comparison of BGO and BSO crystals used in the dual-readout mode', journal: 'NIM A 640 (2011) 91', pdf: '640_91.pdf', abstract: 'A systematic study of BGO and BSO crystals for dual-readout calorimetry is presented. BSO offers a considerably higher Cherenkov light yield; with a UV filter, the separation between Cherenkov and scintillation signals is substantially better in BSO than in BGO despite similar light attenuation characteristics.' },
-      { n: 23, year: 2011, authors: 'N. Akchurin et al.', title: 'Polarization as a tool for dual-readout calorimetry', journal: 'NIM A 638 (2011) 47', pdf: '638_47.pdf', abstract: 'It is shown that signals from the high-Z scintillating crystal BSO can be separated into scintillation and Cherenkov components by exploiting the polarization of the Cherenkov component. These studies were carried out in view of the possible application of such crystals in dual-readout calorimeters.' },
-      { n: 22, year: 2011, authors: 'G. Gaudio', title: 'New result from the DREAM project', journal: 'NIM A 628 (2011) 339', pdf: '628_339.pdf', abstract: null },
-      { n: 21, year: 2010, authors: 'N. Akchurin et al.', title: 'Optimization of crystals for applications in dual-readout calorimetry', journal: 'NIM A 621 (2010) 212', pdf: '621_212.pdf', abstract: 'Lead tungstate crystals doped with various fractions of molybdenum are studied for dual-readout calorimetry. Doping increases the scintillation decay time and shifts the emission spectrum to longer wavelengths, improving Cherenkov/scintillation separation. Crystals with Mo concentrations of 0.1-1.0% are found suitable for dual-readout applications.' },
-      { n: 20, year: 2010, authors: 'R. Wigmans', title: 'The DREAM project \u2014 Towards the ultimate in calorimetry', journal: 'NIM A 617 (2010) 129', pdf: '617_129.pdf', abstract: null },
-      { n: 19, year: 2009, authors: 'N. Akchurin et al.', title: 'Dual-readout calorimetry with a full-size BGO electromagnetic section', journal: 'NIM A 610 (2009) 488', pdf: '610_488.pdf', abstract: null },
-      { n: 18, year: 2009, authors: 'N. Akchurin et al.', title: 'New crystals for dual-readout calorimetry', journal: 'NIM A 604 (2009) 512', pdf: '604_512.pdf', abstract: 'Lead tungstate crystals doped with praseodymium or molybdenum are tested in high-energy electron beams to study the effects of dopants on the separation of Cherenkov and scintillation signal components, in view of their possible application in dual-readout calorimeters.' },
-      { n: 17, year: 2009, authors: 'N. Akchurin et al.', title: 'Dual-Readout Calorimetry with Crystal Calorimeters', journal: 'NIM A 598 (2009) 710', pdf: '598_710.pdf', abstract: 'Up to 20% of the light from lead tungstate crystals results from Cherenkov rather than scintillation processes. A crystal electromagnetic calorimeter backed by the DREAM dual-readout calorimeter is used to determine these two contributions event by event, enabling elimination of the dominant hadronic fluctuation source and a significant improvement in calorimeter performance.' },
-      { n: 16, year: 2009, authors: 'N. Akchurin et al.', title: 'Neutron Signals for Dual-Readout Calorimetry', journal: 'NIM A 598 (2009) 422', pdf: '598_422.pdf', abstract: 'Neutron contributions to hadronic signals in the DREAM calorimeter are measured via the time structure of the signals. Neutrons from nuclear breakup contribute through elastic scattering off protons in scintillating fibers, producing an exponential tail with a ~25 ns time constant. The neutron contribution increases with distance from the shower axis and is absent from Cherenkov signals.' },
-      { n: 15, year: 2008, authors: 'M. Nikl et al.', title: 'Luminescence and scintillation characteristics of heavily Pr\u00b3\u207a-doped PbWO\u2084 single crystals', journal: 'J. Appl. Phys. 104 (2008) 093514', pdf: 'J.-Appl.-Phys.-2008-Nikl.pdf', abstract: null },
-      { n: 14, year: 2008, authors: 'N. Akchurin et al.', title: 'Separation of crystal signals into scintillation and Cherenkov components', journal: 'NIM A 595 (2008) 359', pdf: '595_359.pdf', abstract: null },
-      { n: 13, year: 2008, authors: 'N. Akchurin et al.', title: 'Effects of the temperature dependence of the signals from lead tungstate crystals', journal: 'NIM A 593 (2008) 530', pdf: '593_530.pdf', abstract: null },
-      { n: 12, year: 2008, authors: 'N. Akchurin et al.', title: 'Comparison of High-Energy Hadronic Shower Profiles Measured with Scintillation and Cerenkov Light', journal: 'NIM A 584 (2008) 304', pdf: '584_304.pdf', abstract: null },
-      { n: 11, year: 2008, authors: 'N. Akchurin et al.', title: 'Dual-Readout Calorimetry with Lead Tungstate Crystals', journal: 'NIM A 584 (2008) 273', pdf: '584_273.pdf', abstract: null },
-      { n: 10, year: 2007, authors: 'N. Akchurin et al.', title: 'Contributions of Cherenkov light to the signals from lead tungstate crystals', journal: 'NIM A 582 (2007) 474', pdf: '582_474.pdf', abstract: 'Detailed measurements of signals from high-energy electrons and muons in lead tungstate crystals reveal that a significant fraction is Cherenkov rather than scintillation light, as shown by the angular dependence and time structure of the signals. Depending on crystal orientation and particle type, Cherenkov light can account for up to 15% of the total signal.' },
-      { n: 9, year: 2007, authors: 'N. Akchurin et al.', title: 'Measurement of the Contribution of Neutrons to Hadron Calorimeter Signals', journal: 'NIM A 581 (2007) 643', pdf: '581_643.pdf', abstract: 'Neutron contributions to hadronic signals in the DREAM calorimeter are measured by analyzing signal time structure. Neutrons from nuclear breakup scatter off protons in the scintillating fibers, producing an exponential pulse tail with a ~25 ns time constant that grows with distance from the shower axis. Neutrons do not contribute to Cherenkov signals.' },
-      { n: 8, year: 2007, authors: 'R. Wigmans', title: 'The DREAM project \u2014 Results and plans', journal: 'NIM A 572 (2007) 215', pdf: '572_215.pdf', abstract: 'Results and future plans of the DREAM dual-readout calorimetry project are presented. Hadronic calorimeter performance has long been limited by fluctuations in the electromagnetic shower fraction. DREAM addresses this by simultaneously measuring scintillation and Cherenkov light, enabling event-by-event determination of the electromagnetic fraction and thereby eliminating its adverse effects.' },
-      { n: 7, year: 2005, authors: 'N. Akchurin et al.', title: 'Separation of Scintillation and Cerenkov Light in an Optical Calorimeter', journal: 'NIM A 550 (2005) 185', pdf: '550_185.pdf', abstract: null },
-      { n: 6, year: 2005, authors: 'N. Akchurin et al.', title: 'Comparison of High-Energy Electromagnetic Shower Profiles Measured with Scintillation and Cerenkov Light', journal: 'NIM A 548 (2005) 336', pdf: '548_336.pdf', abstract: 'Electromagnetic shower development in a copper-based fiber calorimeter is studied by simultaneously measuring scintillation and Cherenkov light. Energy resolution, linearity, and response dependence on impact point and angle are reported for electrons from 8 to 200 GeV. Differences between the two signal types are presented and interpreted.' },
-      { n: 5, year: 2005, authors: 'N. Akchurin et al.', title: 'Hadron and jet detection with a dual-readout calorimeter', journal: 'NIM A 537 (2005) 537', pdf: '537_537.pdf', abstract: 'Hadronic shower development in a copper-based fiber calorimeter is studied by simultaneously measuring scintillation and Cherenkov light. Comparing these signals allows event-by-event determination of the electromagnetic shower fraction, whose fluctuations dominate hadronic energy resolution. The dual-readout method eliminates these fluctuation effects. Results are presented for negative pions from 20 to 300 GeV.' },
-      { n: 4, year: 2005, authors: 'N. Akchurin et al.', title: 'Electron detection with a dual-readout calorimeter', journal: 'NIM A 536 (2005) 29', pdf: '536_29.pdf', abstract: 'Electromagnetic shower development in a copper-based fiber calorimeter is studied by simultaneously measuring scintillation and Cherenkov light. Energy resolution, linearity, and response dependence on impact point and angle of incidence are reported for electrons from 8 to 200 GeV. Differences observed between the two signal types are presented and interpreted.' },
-      { n: 3, year: 2005, authors: 'N. Akchurin et al.', title: 'Muon detection with a dual-readout calorimeter', journal: 'NIM A 533 (2005) 305', pdf: '533_305.pdf', abstract: 'Muon detection in a copper-based fiber calorimeter is studied using simultaneous scintillation and Cherenkov readout for muons from 20 to 300 GeV. The two independent signals allow identification and elimination of spurious signals from the readout structure, and enable the first separate measurement of ionization and radiation contributions from muons traversing a massive medium.' },
-      { n: 2, year: 2004, authors: 'R. Wigmans', title: 'Status and perspectives of detectors for experiments in HEP and related fields', journal: 'NIM A 518 (2004) 9', pdf: '518_9.pdf', abstract: null },
-      { n: 1, year: 2001, authors: 'V. Nagaslaev, A. Sill, R. Wigmans', title: "Beam tests of a thin dual-readout calorimeter for detecting cosmic rays outside the Earth's atmosphere", journal: 'NIM A 462 (2001) 411', pdf: '462_411.pdf', abstract: null }
-    ];
-
-    // Re-written to generate HTML identical to your index.md list items
-    function buildPaper(p) {
-      const pdf = p.pdf ? `<a class="action-btn" href="${BASE}${p.pdf}" target="_blank" rel="noopener">PDF</a>` : '';
-      const ext = p.link ? `<a class="action-btn" href="${p.link}" target="_blank" rel="noopener">${p.linkLabel || 'Link'}</a>` : '';
-      const absContent = p.abstract
-        ? `<strong>Abstract:</strong> ${p.abstract}`
-        : `<em>Abstract not available for this entry.</em>`;
-
-      return `<div class="paper-item" id="p${p.n}">
-    <strong style="font-size: 1.1em;">
-      <a href="${p.pdf ? BASE + p.pdf : p.link}" target="_blank" class="paper-title">${p.title}</a>
-    </strong> (${p.year})<br>
-    
-    <div style="font-size: 0.95em; color: #555; margin-top: 5px;">
-      <em>${p.authors}</em><br>
-      Published in: <strong>${p.journal}</strong>
-    </div>
-
-    <div style="margin-top: 5px;">
-      ${pdf} ${ext}
-      <button class="action-btn" onclick="toggle(this)">Toggle Abstract ▼</button>
-    </div>
-
-    <div class="abs-panel">
-      ${absContent}
-    </div>
-  </div>`;
-    }
-
-    document.getElementById('paper-list').innerHTML = papers.map(buildPaper).join('');
-
-    function toggle(btn) {
-      const panel = btn.parentElement.nextElementSibling;
-      const open = panel.classList.toggle('open');
-    }
-
-    function toggleAll(open) {
-      document.querySelectorAll('.abs-panel').forEach(p => p.classList.toggle('open', open));
-    }
-  </script>
-</body>
-
-</html>
+  }
+</script>

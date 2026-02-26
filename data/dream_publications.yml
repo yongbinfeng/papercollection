@@ -1,0 +1,311 @@
+- title: Where the energy goes?
+  year: 2018
+  authors: S. Lee, J. Hauptman, R. Wigmans
+  journal: Physics World Focus on Instruments and Vacuum, August 2018
+  url: https://physicsworld.com/a/where-the-energy-goes/
+  notes: ''
+- title: Tests of a dual-readout fiber calorimeter with SiPM light sensors
+  year: 2018
+  authors: M. Antonello et al.
+  journal: NIM A 899 (2018) 52
+  url: http://www.phys.ttu.edu/~dream/resources/publications/1-s2.0-S0168900218306077-main.pdf
+  summary: The first tests of a dual-readout fiber calorimeter in which silicon photomultipliers
+    are used to sense the scintillation and Cherenkov light signals are described.
+    The main challenge is minimizing optical crosstalk between the two fiber types,
+    which carry light signals differing in intensity by about a factor of 60. The
+    Cherenkov light yield was measured to be about twice that of previously tested
+    PMT-based configurations. The lateral profiles of electromagnetic showers were
+    measured on a millimeter scale and significant differences were found between
+    the scintillating and Cherenkov fiber profiles.
+  notes: ''
+- title: Dual-Readout Calorimetry
+  year: 2018
+  authors: S. Lee, M. Livan, R. Wigmans
+  journal: Rev. Mod. Phys. 90 (2018) 025002
+  url: https://journals.aps.org/rmp/abstract/10.1103/RevModPhys.90.025002
+  summary: In the past 20 years, dual-readout calorimetry has emerged as a technique
+    for measuring the properties of high-energy hadrons and hadron jets that offers
+    considerable advantages compared with instruments currently used at the high-energy
+    frontier. The status of this experimental technique and the challenges faced for
+    its further development are reviewed.
+  notes: ''
+- title: On the limits of the hadronic energy resolution of calorimeters
+  year: 2018
+  authors: S. Lee, M. Livan, R. Wigmans
+  journal: NIM A 882 (2018) 148
+  url: http://www.phys.ttu.edu/~dream/resources/publications/1-s2.0-S0168900217311762-main.pdf
+  summary: 'The root causes of the typically poor hadronic calorimeter performance
+    compared to electromagnetic detection are investigated, and two remedies are evaluated:
+    compensation and dual readout. The dual-readout approach is shown to be more promising,
+    as evidenced by experimental results.'
+  notes: ''
+- title: Hadron detection with a dual-readout fiber calorimeter
+  year: 2017
+  authors: S. Lee et al.
+  journal: NIM A 866 (2017) 76
+  url: http://www.phys.ttu.edu/~dream/resources/publications/1-s2.0-S0168900217305703-main.pdf
+  summary: Measurements of the response functions of a lead-based dual-readout fiber
+    calorimeter (1350 kg) for pions, protons and jets with energies from 20 to 180
+    GeV are described. The calorimeter, calibrated with electrons, reconstructs pion
+    and proton energies to within a few percent at all energies using only its own
+    signals.
+  notes: ''
+- title: New results from the RD52 project
+  year: 2016
+  authors: R. Wigmans
+  journal: NIM A 824 (2016) 721
+  url: http://www.phys.ttu.edu/~dream/resources/publications/824_721.pdf
+  notes: ''
+- title: The small-angle performance of a dual-readout fiber calorimeter
+  year: 2016
+  authors: A. Cardini et al.
+  journal: NIM A 808 (2016) 41
+  url: http://www.phys.ttu.edu/~dream/resources/publications/808_41.pdf
+  notes: ''
+- title: Lessons from Monte Carlo simulations of the performance of a dual-readout
+    fiber calorimeter
+  year: 2014
+  authors: N. Akchurin et al.
+  journal: NIM A 762 (2014) 100
+  url: http://www.phys.ttu.edu/~dream/resources/publications/762_100.pdf
+  summary: Detailed GEANT4-based Monte Carlo simulations of the RD52 dual-readout
+    fiber calorimeter are reported and compared with published measurements. The comparison
+    reveals subtle details of shower development in this detector, allows performance
+    predictions for larger detectors, and uncovers inadequacies in GEANT4 packages
+    for hadronic showers and Cherenkov signals from electromagnetic showers.
+  notes: ''
+- title: Particle identification in the longitudinally unsegmented RD52 calorimeter
+  year: 2014
+  authors: N. Akchurin et al.
+  journal: NIM A 735 (2014) 120
+  url: http://www.phys.ttu.edu/~dream/resources/publications/RD52_PID.pdf
+  summary: Particle identification in the longitudinally unsegmented RD52 dual-readout
+    calorimeter is investigated using differences in scintillation and Cherenkov shower
+    development, radial shower profiles, and signal time structure. At 60 GeV, electrons
+    are correctly identified in 99.8% of cases while eliminating 99.8% of hadrons.
+  notes: ''
+- title: The electromagnetic performance of the RD52 fiber calorimeter
+  year: 2014
+  authors: N. Akchurin et al.
+  journal: NIM A 735 (2014) 130
+  url: http://www.phys.ttu.edu/~dream/resources/publications/RD52_em.pdf
+  summary: The electromagnetic performance of the RD52 dual-readout fiber calorimeter
+    is reported and compared with other instruments built with similar goals. The
+    calorimeter detects both electromagnetic and hadronic showers via simultaneous
+    scintillation and Cherenkov readout, enabling superior hadronic energy resolution.
+  notes: ''
+- title: Detection of electron showers in Dual-Readout crystal calorimeters
+  year: 2012
+  authors: N. Akchurin et al.
+  journal: NIM A 686 (2012) 125
+  url: http://www.phys.ttu.edu/~dream/resources/publications/686_125.pdf
+  summary: Matrices of BGO and PbWO4 crystals are studied as electromagnetic calorimeters
+    with simultaneous scintillation and Cherenkov readout. The Cherenkov yield from
+    BGO is sufficient for dual-readout calorimetry. Differences in the time structure
+    of the two signal types are exploited to achieve event-by-event signal separation.
+  notes: ''
+- title: A comparison of BGO and BSO crystals used in the dual-readout mode
+  year: 2011
+  authors: N. Akchurin et al.
+  journal: NIM A 640 (2011) 91
+  url: http://www.phys.ttu.edu/~dream/resources/publications/640_91.pdf
+  summary: A systematic study of BGO and BSO crystals for dual-readout calorimetry
+    is presented. BSO offers a considerably higher Cherenkov light yield; with a UV
+    filter, the separation between Cherenkov and scintillation signals is substantially
+    better in BSO than in BGO despite similar light attenuation characteristics.
+  notes: ''
+- title: Polarization as a tool for dual-readout calorimetry
+  year: 2011
+  authors: N. Akchurin et al.
+  journal: NIM A 638 (2011) 47
+  url: http://www.phys.ttu.edu/~dream/resources/publications/638_47.pdf
+  summary: It is shown that signals from the high-Z scintillating crystal BSO can
+    be separated into scintillation and Cherenkov components by exploiting the polarization
+    of the Cherenkov component. These studies were carried out in view of the possible
+    application of such crystals in dual-readout calorimeters.
+  notes: ''
+- title: New result from the DREAM project
+  year: 2011
+  authors: G. Gaudio
+  journal: NIM A 628 (2011) 339
+  url: http://www.phys.ttu.edu/~dream/resources/publications/628_339.pdf
+  notes: ''
+- title: Optimization of crystals for applications in dual-readout calorimetry
+  year: 2010
+  authors: N. Akchurin et al.
+  journal: NIM A 621 (2010) 212
+  url: http://www.phys.ttu.edu/~dream/resources/publications/621_212.pdf
+  summary: Lead tungstate crystals doped with various fractions of molybdenum are
+    studied for dual-readout calorimetry. Doping increases the scintillation decay
+    time and shifts the emission spectrum to longer wavelengths, improving Cherenkov/scintillation
+    separation. Crystals with Mo concentrations of 0.1-1.0% are found suitable for
+    dual-readout applications.
+  notes: ''
+- title: The DREAM project \u2014 Towards the ultimate in calorimetry
+  year: 2010
+  authors: R. Wigmans
+  journal: NIM A 617 (2010) 129
+  url: http://www.phys.ttu.edu/~dream/resources/publications/617_129.pdf
+  notes: ''
+- title: Dual-readout calorimetry with a full-size BGO electromagnetic section
+  year: 2009
+  authors: N. Akchurin et al.
+  journal: NIM A 610 (2009) 488
+  url: http://www.phys.ttu.edu/~dream/resources/publications/610_488.pdf
+  notes: ''
+- title: New crystals for dual-readout calorimetry
+  year: 2009
+  authors: N. Akchurin et al.
+  journal: NIM A 604 (2009) 512
+  url: http://www.phys.ttu.edu/~dream/resources/publications/604_512.pdf
+  summary: Lead tungstate crystals doped with praseodymium or molybdenum are tested
+    in high-energy electron beams to study the effects of dopants on the separation
+    of Cherenkov and scintillation signal components, in view of their possible application
+    in dual-readout calorimeters.
+  notes: ''
+- title: Dual-Readout Calorimetry with Crystal Calorimeters
+  year: 2009
+  authors: N. Akchurin et al.
+  journal: NIM A 598 (2009) 710
+  url: http://www.phys.ttu.edu/~dream/resources/publications/598_710.pdf
+  summary: Up to 20% of the light from lead tungstate crystals results from Cherenkov
+    rather than scintillation processes. A crystal electromagnetic calorimeter backed
+    by the DREAM dual-readout calorimeter is used to determine these two contributions
+    event by event, enabling elimination of the dominant hadronic fluctuation source
+    and a significant improvement in calorimeter performance.
+  notes: ''
+- title: Neutron Signals for Dual-Readout Calorimetry
+  year: 2009
+  authors: N. Akchurin et al.
+  journal: NIM A 598 (2009) 422
+  url: http://www.phys.ttu.edu/~dream/resources/publications/598_422.pdf
+  summary: Neutron contributions to hadronic signals in the DREAM calorimeter are
+    measured via the time structure of the signals. Neutrons from nuclear breakup
+    contribute through elastic scattering off protons in scintillating fibers, producing
+    an exponential tail with a ~25 ns time constant. The neutron contribution increases
+    with distance from the shower axis and is absent from Cherenkov signals.
+  notes: ''
+- title: Luminescence and scintillation characteristics of heavily Pr\u00b3\u207a-doped
+    PbWO\u2084 single crystals
+  year: 2008
+  authors: M. Nikl et al.
+  journal: J. Appl. Phys. 104 (2008) 093514
+  url: http://www.phys.ttu.edu/~dream/resources/publications/J.-Appl.-Phys.-2008-Nikl.pdf
+  notes: ''
+- title: Separation of crystal signals into scintillation and Cherenkov components
+  year: 2008
+  authors: N. Akchurin et al.
+  journal: NIM A 595 (2008) 359
+  url: http://www.phys.ttu.edu/~dream/resources/publications/595_359.pdf
+  notes: ''
+- title: Effects of the temperature dependence of the signals from lead tungstate
+    crystals
+  year: 2008
+  authors: N. Akchurin et al.
+  journal: NIM A 593 (2008) 530
+  url: http://www.phys.ttu.edu/~dream/resources/publications/593_530.pdf
+  notes: ''
+- title: Comparison of High-Energy Hadronic Shower Profiles Measured with Scintillation
+    and Cerenkov Light
+  year: 2008
+  authors: N. Akchurin et al.
+  journal: NIM A 584 (2008) 304
+  url: http://www.phys.ttu.edu/~dream/resources/publications/584_304.pdf
+  notes: ''
+- title: Dual-Readout Calorimetry with Lead Tungstate Crystals
+  year: 2008
+  authors: N. Akchurin et al.
+  journal: NIM A 584 (2008) 273
+  url: http://www.phys.ttu.edu/~dream/resources/publications/584_273.pdf
+  notes: ''
+- title: Contributions of Cherenkov light to the signals from lead tungstate crystals
+  year: 2007
+  authors: N. Akchurin et al.
+  journal: NIM A 582 (2007) 474
+  url: http://www.phys.ttu.edu/~dream/resources/publications/582_474.pdf
+  summary: Detailed measurements of signals from high-energy electrons and muons in
+    lead tungstate crystals reveal that a significant fraction is Cherenkov rather
+    than scintillation light, as shown by the angular dependence and time structure
+    of the signals. Depending on crystal orientation and particle type, Cherenkov
+    light can account for up to 15% of the total signal.
+  notes: ''
+- title: Measurement of the Contribution of Neutrons to Hadron Calorimeter Signals
+  year: 2007
+  authors: N. Akchurin et al.
+  journal: NIM A 581 (2007) 643
+  url: http://www.phys.ttu.edu/~dream/resources/publications/581_643.pdf
+  summary: Neutron contributions to hadronic signals in the DREAM calorimeter are
+    measured by analyzing signal time structure. Neutrons from nuclear breakup scatter
+    off protons in the scintillating fibers, producing an exponential pulse tail with
+    a ~25 ns time constant that grows with distance from the shower axis. Neutrons
+    do not contribute to Cherenkov signals.
+  notes: ''
+- title: The DREAM project \u2014 Results and plans
+  year: 2007
+  authors: R. Wigmans
+  journal: NIM A 572 (2007) 215
+  url: http://www.phys.ttu.edu/~dream/resources/publications/572_215.pdf
+  summary: Results and future plans of the DREAM dual-readout calorimetry project
+    are presented. Hadronic calorimeter performance has long been limited by fluctuations
+    in the electromagnetic shower fraction. DREAM addresses this by simultaneously
+    measuring scintillation and Cherenkov light, enabling event-by-event determination
+    of the electromagnetic fraction and thereby eliminating its adverse effects.
+  notes: ''
+- title: Separation of Scintillation and Cerenkov Light in an Optical Calorimeter
+  year: 2005
+  authors: N. Akchurin et al.
+  journal: NIM A 550 (2005) 185
+  url: http://www.phys.ttu.edu/~dream/resources/publications/550_185.pdf
+  notes: ''
+- title: Comparison of High-Energy Electromagnetic Shower Profiles Measured with Scintillation
+    and Cerenkov Light
+  year: 2005
+  authors: N. Akchurin et al.
+  journal: NIM A 548 (2005) 336
+  url: http://www.phys.ttu.edu/~dream/resources/publications/548_336.pdf
+  summary: Electromagnetic shower development in a copper-based fiber calorimeter
+    is studied by simultaneously measuring scintillation and Cherenkov light. Energy
+    resolution, linearity, and response dependence on impact point and angle are reported
+    for electrons from 8 to 200 GeV. Differences between the two signal types are
+    presented and interpreted.
+  notes: ''
+- title: Hadron and jet detection with a dual-readout calorimeter
+  year: 2005
+  authors: N. Akchurin et al.
+  journal: NIM A 537 (2005) 537
+  url: http://www.phys.ttu.edu/~dream/resources/publications/537_537.pdf
+  summary: Hadronic shower development in a copper-based fiber calorimeter is studied
+    by simultaneously measuring scintillation and Cherenkov light. Comparing these
+    signals allows event-by-event determination of the electromagnetic shower fraction,
+    whose fluctuations dominate hadronic energy resolution. The dual-readout method
+    eliminates these fluctuation effects. Results are presented for negative pions
+    from 20 to 300 GeV.
+  notes: ''
+- title: Electron detection with a dual-readout calorimeter
+  year: 2005
+  authors: N. Akchurin et al.
+  journal: NIM A 536 (2005) 29
+  url: http://www.phys.ttu.edu/~dream/resources/publications/536_29.pdf
+  summary: Electromagnetic shower development in a copper-based fiber calorimeter
+    is studied by simultaneously measuring scintillation and Cherenkov light. Energy
+    resolution, linearity, and response dependence on impact point and angle of incidence
+    are reported for electrons from 8 to 200 GeV. Differences observed between the
+    two signal types are presented and interpreted.
+  notes: ''
+- title: Muon detection with a dual-readout calorimeter
+  year: 2005
+  authors: N. Akchurin et al.
+  journal: NIM A 533 (2005) 305
+  url: http://www.phys.ttu.edu/~dream/resources/publications/533_305.pdf
+  summary: Muon detection in a copper-based fiber calorimeter is studied using simultaneous
+    scintillation and Cherenkov readout for muons from 20 to 300 GeV. The two independent
+    signals allow identification and elimination of spurious signals from the readout
+    structure, and enable the first separate measurement of ionization and radiation
+    contributions from muons traversing a massive medium.
+  notes: ''
+- title: Status and perspectives of detectors for experiments in HEP and related fields
+  year: 2004
+  authors: R. Wigmans
+  journal: NIM A 518 (2004) 9
+  url: http://www.phys.ttu.edu/~dream/resources/publications/518_9.pdf
+  notes: ''

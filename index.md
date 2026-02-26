@@ -83,9 +83,19 @@ layout: default
   }
 </style>
 
-# Physics Paper Collection
+<script>
+  MathJax = {
+    tex: {
+      inlineMath: [['$', '$'], ['\\(', '\\)']],
+      displayMath: [['$$', '$$'], ['\\[', '\\]']]
+    }
+  };
+</script>
+<script async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js"></script>
 
-Welcome to my curated reading list! Use the search bar below to filter papers by title or keyword, or click a category to jump straight to it.
+# Some Fun Papers
+
+A collection of papers I find interesting and want to keep handy for future reference.
 
 <input type="text" id="searchInput" onkeyup="searchPapers()" placeholder="Search for papers..." style="width: 100%; padding: 12px; margin-bottom: 20px; border: 1px solid #ccc; border-radius: 4px; font-size: 16px;">
 

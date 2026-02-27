@@ -6,7 +6,6 @@ BIB_FILE = 'papers.bib'
 
 
 def process_bib_to_console():
-    # 1. Load the BibTeX file
     try:
         with open(BIB_FILE, 'r', encoding='utf-8') as bibtex_file:
             bib_database = bibtexparser.load(bibtex_file)
@@ -15,10 +14,8 @@ def process_bib_to_console():
             f"Error: Could not find '{BIB_FILE}'. Please ensure the file exists in the same folder.")
         return
 
-    # Dictionary to hold papers grouped by category
     categories = defaultdict(list)
 
-    # 2. Process each entry
     for entry in bib_database.entries:
         raw_category = entry.get(
             'category', entry.get('keywords', 'General Physics'))
@@ -28,23 +25,20 @@ def process_bib_to_console():
             '{', '').replace('}', '').replace('"', "'")
         year = entry.get('year', '')
 
-        # --- SMART COLLABORATION / AUTHOR LOGIC ---
         collaboration = entry.get('collaboration', '').replace(
             '{', '').replace('}', '').replace('"', "'").strip()
         raw_authors = entry.get('author', '').replace('{', '').replace(
             '}', '').replace('"', "'").replace('\n', ' ').strip()
 
         if collaboration:
-            # Use the collaboration field. Add the word "Collaboration" if it isn't already there.
             if "collaboration" not in collaboration.lower():
                 final_author = f"{collaboration} Collaboration"
             else:
                 final_author = collaboration
         else:
-            # Fallback to standard authors, and clean up "and others" to "et al."
-            final_author = raw_authors.replace(' and others', ' et al.')
+            final_author = raw_authors.replace(
+                ' and others', ' et al.').replace('\\', '\\\\')
 
-        # SMART URL HANDLING
         if 'eprint' in entry:
             url = f"https://arxiv.org/abs/{entry['eprint']}"
         elif 'doi' in entry:
@@ -52,10 +46,8 @@ def process_bib_to_console():
         else:
             url = entry.get('url', '#')
 
-        # --- BULLET POINT HANDLING ---
         notes = entry.get('note', entry.get('annote', ''))
         if notes:
-            # Remove quotes but keep the \n newlines intact so bullet points survive
             notes = notes.replace('"', "'").strip()
 
         paper_data = {
@@ -72,7 +64,6 @@ def process_bib_to_console():
 
         categories[category_name].append(paper_data)
 
-    # 3. Print the manually formatted output
     if not categories:
         print("No entries found in the .bib file.")
         return
@@ -92,14 +83,12 @@ def process_bib_to_console():
                 print(f'  authors: "{paper["authors"]}"')
             print(f'  url: "{paper["url"]}"')
 
-            # --- OUTPUT NOTES WITH MULTI-LINE SUPPORT ---
+            # --- BULLETPROOF NOTES OUTPUT ---
+            # Using the pipe (|) makes YAML ignore all backslashes and quotes
             if 'notes' in paper:
-                if '\n' in paper["notes"]:
-                    print(f'  notes: |')
-                    for line in paper["notes"].split('\n'):
-                        print(f'    {line.strip()}')
-                else:
-                    print(f'  notes: "{paper["notes"]}"')
+                print(f'  notes: |')
+                for line in paper["notes"].split('\n'):
+                    print(f'    {line.strip()}')
             print()
 
 

@@ -1,19 +1,33 @@
-- title: "Measurement of pion and proton response and longitudinal shower profiles up to 20 nuclear interaction lengths with the ATLAS Tile calorimeter"
+- title: "Measurement of pion and proton response and longitudinal shower profiles up to 20 nuclear interaction lengths with the ATLAS tile calorimeter"
   year: 2010
+  authors: "Adragna, P. et al."
   url: "https://doi.org/10.1016/j.nima.2010.01.037"
-  notes: "Pion vs proton showers in ATLAS Tile Calorimeter."
+  notes: |
+    Pion vs proton showers in ATLAS Tile Calorimeter:
+    * The proton response is higher than the pion response.
 
 - title: "Measurement of the time development of particle showers in a uranium scintillator calorimeter"
   year: 1993
+  authors: "Caldwell, A. and Hervas, L. and Parsons, J. A. and Sciulli, F. and Sippach, W. and Wai, L."
   url: "https://doi.org/10.1016/0168-9002(93)90568-3"
-  notes: "Measurement of EM and hadron shower time profile in a compensation calorimeter"
-
-- title: "Dual-Readout Calorimetry"
-  year: 2018
-  url: "https://doi.org/10.1103/RevModPhys.90.025002"
-  notes: 'Review of DR Calorimeter; see also the DREAM / RD52 <a href="html/dreampubs.html" target="_blank">publication list</a>.'
+  notes: | 
+    Measurement of EM and hadron shower time profile in a compensation calorimeter
 
 - title: "Experimental Tests of Particle Flow Calorimetry"
   year: 2016
-  url: "https://doi.org/10.1103/RevModPhys.88.015003"
+  authors: "Sefkow, Felix and White, Andy and Kawagoe, Kiyotomo and P\'oschl, Roman and Repond, Jos\'e"
+  url: "https://arxiv.org/abs/1507.05893"
   notes: "Review of PF Calorimeter"
+
+- title: "Dual-Readout Calorimetry"
+  year: 2018
+  authors: "Lee, Sehwook and Livan, Michele and Wigmans, Richard"
+  url: "https://arxiv.org/abs/1712.05494"
+  notes: 'Review of DR Calorimeter; see also the DREAM/RD52 <a href="html/dreampubs.html" target="_blank">publication list</a>.'
+
+- title: "Lateral shower profiles in a lead / scintillating fiber calorimeter"
+  year: 1992
+  authors: "Acosta, D. et al."
+  url: "https://doi.org/10.1016/0168-9002(92)90901-F"
+  notes: |
+    SPACAL prototype

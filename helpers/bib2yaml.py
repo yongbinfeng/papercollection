@@ -20,51 +20,64 @@ def process_bib_to_console():
 
     # 2. Process each entry
     for entry in bib_database.entries:
-        # Determine category (defaults to 'general_physics' if missing)
         raw_category = entry.get(
             'category', entry.get('keywords', 'General Physics'))
         category_name = raw_category.split(',')[0].strip()
 
-        # Clean up title: Remove BibTeX {} and swap inner double quotes to single quotes to prevent breaking the YAML
         title = entry.get('title', 'Untitled').replace(
             '{', '').replace('}', '').replace('"', "'")
         year = entry.get('year', '')
 
-        # Smart URL handling
-        url = entry.get('url', '')
-        if not url:
-            if 'doi' in entry:
-                url = f"https://doi.org/{entry['doi']}"
-            elif 'eprint' in entry:
-                url = f"https://arxiv.org/abs/{entry['eprint']}"
-            else:
-                url = "#"  # Fallback empty link
+        # --- SMART COLLABORATION / AUTHOR LOGIC ---
+        collaboration = entry.get('collaboration', '').replace(
+            '{', '').replace('}', '').replace('"', "'").strip()
+        raw_authors = entry.get('author', '').replace('{', '').replace(
+            '}', '').replace('"', "'").replace('\n', ' ').strip()
 
-        # Look for a notes field and clean up any newlines
+        if collaboration:
+            # Use the collaboration field. Add the word "Collaboration" if it isn't already there.
+            if "collaboration" not in collaboration.lower():
+                final_author = f"{collaboration} Collaboration"
+            else:
+                final_author = collaboration
+        else:
+            # Fallback to standard authors, and clean up "and others" to "et al."
+            final_author = raw_authors.replace(' and others', ' et al.')
+
+        # SMART URL HANDLING
+        if 'eprint' in entry:
+            url = f"https://arxiv.org/abs/{entry['eprint']}"
+        elif 'doi' in entry:
+            url = f"https://doi.org/{entry['doi']}"
+        else:
+            url = entry.get('url', '#')
+
+        # --- BULLET POINT HANDLING ---
         notes = entry.get('note', entry.get('annote', ''))
         if notes:
-            notes = notes.replace('\n', ' ').replace('"', "'")
+            # Remove quotes but keep the \n newlines intact so bullet points survive
+            notes = notes.replace('"', "'").strip()
 
-        # Build the paper dictionary
         paper_data = {
             'title': title,
             'year': int(year) if year.isdigit() else year,
             'url': url
         }
 
+        if final_author:
+            paper_data['authors'] = final_author
+
         if notes:
             paper_data['notes'] = notes
 
-        # Add to the appropriate category list
         categories[category_name].append(paper_data)
 
-    # 3. Print the manually formatted output to the console
+    # 3. Print the manually formatted output
     if not categories:
         print("No entries found in the .bib file.")
         return
 
     for cat_name, papers in categories.items():
-        # Create a suggested filename based on the category
         suggested_filename = f"{cat_name.replace(' ', '_').lower()}.yml"
 
         print(f"\n" + "="*50)
@@ -72,14 +85,22 @@ def process_bib_to_console():
         print(f"SUGGESTED FILE: data/{suggested_filename}")
         print("="*50)
 
-        # Manually format the YAML to force quotation marks
         for paper in papers:
             print(f'- title: "{paper["title"]}"')
             print(f'  year: {paper["year"]}')
+            if 'authors' in paper:
+                print(f'  authors: "{paper["authors"]}"')
             print(f'  url: "{paper["url"]}"')
+
+            # --- OUTPUT NOTES WITH MULTI-LINE SUPPORT ---
             if 'notes' in paper:
-                print(f'  notes: "{paper["notes"]}"')
-            print()  # Add a blank line between papers for readability
+                if '\n' in paper["notes"]:
+                    print(f'  notes: |')
+                    for line in paper["notes"].split('\n'):
+                        print(f'    {line.strip()}')
+                else:
+                    print(f'  notes: "{paper["notes"]}"')
+            print()
 
 
 if __name__ == '__main__':

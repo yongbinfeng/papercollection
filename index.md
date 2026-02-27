@@ -72,13 +72,18 @@ A collection of papers I find interesting and want to keep handy for future refe
             <em>{{ paper.authors }}</em>
           </div>
         {% endif %}
-        
+
         {% if paper.notes %}
           <div class="paper-notes" style="margin-top: 8px; font-size: 0.95em; color: #555;">
             <strong>Notes:</strong> 
-            {{ paper.notes | markdownify }}
+            
+            <div style="margin-left: 20px;">
+              {{ paper.notes | markdownify }}
+            </div>
+            
           </div>
         {% endif %}
+        
       </li>
     {% endfor %}
     </ul>

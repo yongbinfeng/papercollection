@@ -27,6 +27,18 @@ layout: default
     width: 95% !important;
     max-width: 1100px !important;
   }
+
+  /* Styling to make Markdown bullet points look clean inside notes */
+  .paper-notes p {
+    margin-top: 4px;
+    margin-bottom: 8px;
+  }
+
+  .paper-notes ul {
+    margin-top: 4px;
+    margin-bottom: 8px;
+    padding-left: 20px;
+  }
 </style>
 
 <script>
@@ -77,7 +89,10 @@ layout: default
 
       {% if paper.notes != "" and paper.notes %}
       <div class="paper-notes" style="margin-top: 8px; font-size: 0.95em; color: #555;">
-        <strong>Notes:</strong> {{ paper.notes }}
+        <strong>Notes:</strong>
+        <div style="margin-left: 20px;">
+          {{ paper.notes | markdownify }}
+        </div>
       </div>
       {% endif %}
 

@@ -4,7 +4,10 @@
   url: "https://doi.org/10.1016/j.nima.2010.01.037"
   notes: |
     Pion vs proton showers in ATLAS Tile Calorimeter:
-    * The proton response is higher than the pion response.
+    * Higher response in pions compared with protons
+    * larger $f_{EM}$ in pion showers, larger event-by-event fluctuation in pion showers
+    * Deeper in pion showers compared with protons
+    * Narrower in pion showers compared with protons
 
 - title: "Measurement of the time development of particle showers in a uranium scintillator calorimeter"
   year: 1993

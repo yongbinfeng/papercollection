@@ -1,11 +1,15 @@
 - title: "Studies of the Energy Dependence of Diboson Polarization Fractions and the Radiation-Amplitude-Zero Effect in WZ Production with the ATLAS Detector"
   year: 2024
   authors: "ATLAS Collaboration"
+  journal: '<i>Phys. Rev. Lett.</i> <b>133</b> (2024) 101802'
   url: "https://arxiv.org/abs/2402.16365"
-  notes: "RAZ dip in $W_{T}Z_{T}$"
+  notes: |
+    * [Erratum: Phys.Rev.Lett. 133, 169901 (2024)]
+    * 'RAZ dip in $W_{T}Z_{T}'
 
 - title: "Electroweak Symmetry Restoration and Radiation Amplitude Zeros"
   year: 2025
-  authors: "Capdevilla, Rodolfo and Han, Tao"
+  authors: "Rodolfo Capdevilla, Tao Han"
+  journal: '<i>Phys. Rev. Lett.</i> <b>135</b> (2025) 101801'
   url: "https://arxiv.org/abs/2412.12336"
   notes: 'EW symmetry restoration (EWSR) at higher energies, where $W_{T}/Z_{T}\rightarrow\gamma$, $W_{L}/Z_{L}\rightarrow H$'

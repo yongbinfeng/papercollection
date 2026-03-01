@@ -1,6 +1,7 @@
 - title: "Measurement of pion and proton response and longitudinal shower profiles up to 20 nuclear interaction lengths with the ATLAS tile calorimeter"
   year: 2010
-  authors: "Adragna, P. et al."
+  authors: "P. Adragna et al."
+  journal: '<i>Nucl. Instrum. Meth. A</i> <b>615</b> (2010) 158-181'
   url: "https://doi.org/10.1016/j.nima.2010.01.037"
   notes: |
     Pion vs proton showers in ATLAS Tile Calorimeter:
@@ -11,26 +12,43 @@
 
 - title: "Measurement of the time development of particle showers in a uranium scintillator calorimeter"
   year: 1993
-  authors: "Caldwell, A. and Hervas, L. and Parsons, J. A. and Sciulli, F. and Sippach, W. and Wai, L."
+  authors: "A. Caldwell, L. Hervas, J. A. Parsons, F. Sciulli, W. Sippach, L. Wai"
+  journal: '<i>Nucl. Instrum. Meth. A</i> <b>330</b> (1993) 389-404'
   url: "https://doi.org/10.1016/0168-9002(93)90568-3"
   notes: | 
     Measurement of EM and hadron shower time profile in a compensation calorimeter
 
 - title: "Experimental Tests of Particle Flow Calorimetry"
   year: 2016
-  authors: "Sefkow, Felix and White, Andy and Kawagoe, Kiyotomo and P\\'oschl, Roman and Repond, Jos\\'e"
+  authors: "Felix Sefkow, Andy White, Kiyotomo Kawagoe, Roman Pöschl, José Repond"
+  journal: '<i>Rev. Mod. Phys.</i> <b>88</b> (2016) 015003'
   url: "https://arxiv.org/abs/1507.05893"
   notes: "Review of PF Calorimeter"
 
 - title: "Dual-Readout Calorimetry"
   year: 2018
-  authors: "Lee, Sehwook and Livan, Michele and Wigmans, Richard"
+  authors: "Sehwook Lee, Michele Livan, Richard Wigmans"
+  journal: '<i>Rev. Mod. Phys.</i> <b>90</b> (2018) 025002'
   url: "https://arxiv.org/abs/1712.05494"
   notes: 'Review of DR Calorimeter; see also the DREAM/RD52 <a href="html/dreampubs.html" target="_blank">publication list</a>.'
 
 - title: "Lateral shower profiles in a lead / scintillating fiber calorimeter"
   year: 1992
-  authors: "Acosta, D. et al."
+  authors: "D. Acosta et al."
+  journal: '<i>Nucl. Instrum. Meth. A</i> <b>316</b> (1992) 184-201'
   url: "https://doi.org/10.1016/0168-9002(92)90901-F"
   notes: |
-    SPACAL prototype
+    SPACAL prototype:
+    * Comparing lateral shower profile of electrons vs pions
+    * Neutron contributions in the larger radius part
+
+- title: "Electron, pion and multiparticle detection with a lead / scintillating - fiber calorimeter"
+  year: 1991
+  authors: "D. Acosta et al."
+  journal: '<i>Nucl. Instrum. Meth. A</i> <b>308</b> (1991) 481-508'
+  url: "https://doi.org/10.1016/0168-9002(91)90062-U"
+  notes: |
+    SPACAL prototype:
+    * Resolutions of EM and hadron showers in lead + scinillation ``spaghetti" calorimeter
+    * Corrections for various effects: attenuation, preshower detector, etc
+    * e/h, asymmetric energy distribution in pion showers

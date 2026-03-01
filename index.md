@@ -67,9 +67,11 @@ A collection of papers I find interesting and want to keep handy for future refe
           <a href="{{ paper.url }}" target="_blank" class="paper-title">{{ paper.title }}</a>
         </strong> ({{ paper.year }})<br>
         
-        {% if paper.authors %}
+        {% if paper.authors or paper.journal %}
           <div style="font-size: 0.9em; color: #555; margin-top: 5px; margin-bottom: 5px;">
-            <em>{{ paper.authors }}</em>
+            {% if paper.authors %}<em>{{ paper.authors }}</em>{% endif %}
+            {% if paper.authors and paper.journal %}<br>{% endif %}
+            {% if paper.journal %}Published in: {{ paper.journal }}{% endif %}
           </div>
         {% endif %}
 

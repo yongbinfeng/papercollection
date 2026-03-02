@@ -33,7 +33,7 @@ layout: default
 
 # Some Fun Papers
 
-A collection of papers I find interesting and want to keep handy for future reference.
+A collection of papers I find interesting and want to keep handy for future reference, with some notes quickly taken.
 
 <p style="font-size: 0.85em; color: #666; margin-top: -10px; margin-bottom: 25px;"><em>Last updated: {{ site.time | date: "%B %-d, %Y" }}</em></p>
 

@@ -5,10 +5,11 @@
   url: "https://doi.org/10.1016/j.nima.2010.01.037"
   notes: |
     Pion vs proton showers in ATLAS Tile Calorimeter:
-    * Higher response in pions compared with protons
-    * larger $f_{EM}$ in pion showers, larger event-by-event fluctuation in pion showers
-    * Deeper in pion showers compared with protons
-    * Narrower in pion showers compared with protons
+    * larger $f_{EM}$, higher response in pion showers (pion first interaction can produce $\pi^0$) 
+    * larger $\lambda_{I}$for pions compared with protons
+    * deeper in pion showers compared with protons
+    * narrower in pion showers compared with protons
+    * larger event-by-event fluctuation in pion showers
 
 - title: "Measurement of the time development of particle showers in a uranium scintillator calorimeter"
   year: 1993
@@ -49,6 +50,6 @@
   url: "https://doi.org/10.1016/0168-9002(91)90062-U"
   notes: |
     SPACAL prototype:
-    * Resolutions of EM and hadron showers in lead + scinillation ``spaghetti" calorimeter
+    * Resolutions of EM and hadron showers in lead + scinillation "spaghetti" calorimeter
     * Corrections for various effects: attenuation, preshower detector, etc
     * e/h, asymmetric energy distribution in pion showers

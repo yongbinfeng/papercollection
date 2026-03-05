@@ -31,7 +31,10 @@
   authors: "Sehwook Lee, Michele Livan, Richard Wigmans"
   journal: '<i>Rev. Mod. Phys.</i> <b>90</b> (2018) 025002'
   url: "https://arxiv.org/abs/1712.05494"
-  notes: 'Review of DR Calorimeter; see also the DREAM/RD52 <a href="html/dreampubs.html" target="_blank">publication list</a>.'
+  notes: | 
+    * Review of DR Calorimeter
+    * see also the DREAM/RD52 <a href="html/dreampubs.html" target="_blank">publication list</a>.
+    * For a visual demonstration of how rays travel, see <a href="html/fiber_optics.html" target="_blank">Interactive Ray Propagation</a>.
 
 - title: "Lateral shower profiles in a lead / scintillating fiber calorimeter"
   year: 1992

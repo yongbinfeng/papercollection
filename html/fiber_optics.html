@@ -1,0 +1,979 @@
+---
+layout: none
+---
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fiber Optic Ray Propagation: Meridional vs. Skew</title>
+
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        stone: {
+                            50: '#fafaf9',
+                            100: '#f5f5f4',
+                            200: '#e7e5e4',
+                            800: '#292524',
+                            900: '#1c1917',
+                        },
+                        accent: {
+                            teal: '#0f766e',
+                            orange: '#ea580c',
+                        }
+                    },
+                    // UPDATED: Matched exactly to your main Jekyll Minimal theme
+                    fontFamily: {
+                        sans: ['"Helvetica Neue"', 'Helvetica', 'Arial', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
+
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+
+    <style>
+        /* Custom Styles for Interactive Elements and Chart Containers */
+        body {
+            background-color: #fafaf9;
+            color: #292524;
+        }
+
+        .interactive-btn {
+            transition: all 0.2s ease-in-out;
+        }
+
+        .interactive-btn.active {
+            background-color: #0f766e;
+            color: white;
+            border-color: #0f766e;
+        }
+
+        .chart-container {
+            position: relative;
+            width: 100%;
+            max-width: 800px;
+            margin-left: auto;
+            margin-right: auto;
+            height: 350px;
+            max-height: 400px;
+        }
+
+        @media (max-width: 640px) {
+            .chart-container {
+                height: 250px;
+            }
+        }
+
+        .canvas-container {
+            width: 100%;
+            max-width: 800px;
+            margin: 0 auto;
+            border-radius: 0.5rem;
+            overflow: hidden;
+            background-color: #1c1917;
+            position: relative;
+        }
+
+        canvas {
+            display: block;
+            width: 100%;
+            height: 100%;
+        }
+
+        .data-card {
+            background: white;
+            border: 1px solid #e7e5e4;
+            border-radius: 0.75rem;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05), 0 2px 4px -1px rgba(0, 0, 0, 0.03);
+            padding: 1.5rem;
+        }
+    </style>
+</head>
+
+<body class="font-sans antialiased text-stone-800 pb-16">
+
+    <header class="bg-white border-b border-stone-200 sticky top-0 z-50 shadow-sm">
+        <div
+            class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-4 flex flex-col sm:flex-row justify-between items-center gap-4">
+            <div>
+                <a href="../index.html" class="text-sm font-bold text-accent-teal hover:underline mb-1 block">← Back to
+                    Main Collection</a>
+                <h1 class="text-2xl font-bold text-accent-teal tracking-tight flex items-center gap-2">
+                    <span class="text-xl">∿</span> Fiber Optics: Ray Propagation
+                </h1>
+            </div>
+            <nav class="hidden md:flex gap-6 text-sm font-medium text-stone-600">
+                <a href="#fundamentals" class="hover:text-accent-teal transition-colors">Fundamentals</a>
+                <a href="#acceptance" class="hover:text-accent-teal transition-colors">Acceptance Angle</a>
+                <a href="#bending" class="hover:text-accent-teal transition-colors">Bending Effects</a>
+            </nav>
+        </div>
+    </header>
+
+    <main class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 mt-8 space-y-12">
+
+        <!-- Introduction Section -->
+        <section id="fundamentals" class="space-y-4">
+            <h2 class="text-3xl font-semibold text-stone-900 border-b-2 border-accent-teal pb-2 inline-block">1. Core
+                Fundamentals</h2>
+            <p class="text-lg text-stone-600 max-w-4xl leading-relaxed">
+                This interactive report explores how light propagates through a step-index optical fiber. While
+                electromagnetic wave theory offers a complete picture, <strong>Ray Optics</strong> provides an intuitive
+                way to understand light behavior. In a multimode fiber, light rays are broadly classified into two
+                categories based on their trajectory: <strong>Meridional Rays</strong> and <strong>Skew Rays</strong>.
+                Understanding their distinct paths is crucial for analyzing fiber efficiency, acceptance capabilities,
+                and signal loss.
+            </p>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mt-6">
+                <div class="bg-white p-5 rounded-lg border border-stone-200 shadow-sm border-l-4 border-l-accent-teal">
+                    <h3 class="text-xl font-bold text-stone-900 mb-2">Meridional Rays</h3>
+                    <p class="text-stone-600">Rays that pass straight through the central optical axis of the fiber
+                        after every reflection. They travel entirely within a single 2D plane down the length of the
+                        fiber in a standard zigzag pattern. They are the simplest to analyze mathematically and define
+                        the fiber's standard numerical aperture.</p>
+                </div>
+                <div
+                    class="bg-white p-5 rounded-lg border border-stone-200 shadow-sm border-l-4 border-l-accent-orange">
+                    <h3 class="text-xl font-bold text-stone-900 mb-2">Skew Rays</h3>
+                    <p class="text-stone-600">Rays that travel in a 3D helical (spiral) path and <strong>never</strong>
+                        intersect the central optical axis. They continuously bounce along the outer edges of the
+                        core-cladding boundary and can enter the fiber at steeper angles than meridional rays.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Interactive Ray Viewer Section -->
+        <section class="data-card bg-stone-50 border-none">
+            <h3 class="text-2xl font-semibold mb-4 text-stone-900">Interactive Ray Path Visualization</h3>
+            <p class="text-stone-600 mb-6">
+                Use the controls below to switch between Meridional and Skew rays. Observe how their paths differ
+                relative to the central core axis (the dotted line).
+            </p>
+
+            <div class="grid grid-cols-1 lg:grid-cols-3 gap-8 items-start">
+
+                <!-- Controls and Description -->
+                <div class="lg:col-span-1 space-y-6">
+                    <div class="flex flex-col gap-3">
+                        <button id="btn-meridional"
+                            class="interactive-btn active w-full py-3 px-4 rounded-lg border-2 border-stone-300 font-semibold text-left flex justify-between items-center bg-white hover:border-accent-teal">
+                            Meridional Rays
+                            <span class="text-xl">⤡</span>
+                        </button>
+                        <button id="btn-skew"
+                            class="interactive-btn w-full py-3 px-4 rounded-lg border-2 border-stone-300 font-semibold text-left flex justify-between items-center bg-white hover:border-accent-teal">
+                            Skew Rays
+                            <span class="text-xl">⟳</span>
+                        </button>
+                    </div>
+
+                    <div id="ray-description"
+                        class="p-4 bg-white rounded-lg border border-stone-200 shadow-sm transition-all duration-300">
+                        <!-- Populated by JS -->
+                    </div>
+                </div>
+
+                <!-- Canvas Visualizations -->
+                <div class="lg:col-span-2 flex flex-col gap-6">
+
+                    <!-- 3D View -->
+                    <div class="flex flex-col">
+                        <div id="three-container" class="canvas-container shadow-inner border border-stone-800"
+                            style="height: 300px; cursor: grab;">
+                            <!-- ThreeJS Canvas will be injected here -->
+                        </div>
+                        <p class="text-sm text-center text-stone-500 mt-2 font-medium">Interactive 3D View (Click & Drag
+                            to Rotate)</p>
+                    </div>
+
+                    <!-- 2D Projections -->
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                        <!-- Longitudinal (Side) View -->
+                        <div class="md:col-span-2 flex flex-col">
+                            <div class="canvas-container shadow-inner border border-stone-800 flex-grow"
+                                style="min-height: 250px;">
+                                <canvas id="fiberCanvasSide"></canvas>
+                            </div>
+                            <p class="text-sm text-center text-stone-500 mt-2 font-medium">Longitudinal (Side)
+                                Projection</p>
+                        </div>
+
+                        <!-- Transverse (Cross-Section) View -->
+                        <div class="md:col-span-1 flex flex-col">
+                            <div class="canvas-container shadow-inner border border-stone-800 flex-grow"
+                                style="min-height: 250px;">
+                                <canvas id="fiberCanvasTransverse"></canvas>
+                            </div>
+                            <p class="text-sm text-center text-stone-500 mt-2 font-medium">Transverse (XY Cross-Section)
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Acceptance Angle Section -->
+        <section id="acceptance" class="space-y-6">
+            <h2 class="text-3xl font-semibold text-stone-900 border-b-2 border-accent-teal pb-2 inline-block">2.
+                Acceptance Angles & Numerical Aperture</h2>
+            <p class="text-lg text-stone-600 max-w-4xl leading-relaxed">
+                The acceptance angle defines the maximum angle at which light can enter the fiber core and still be
+                completely trapped by total internal reflection. This concept applies differently to our two ray types.
+            </p>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <div class="data-card">
+                    <div class="text-accent-teal text-2xl mb-2">◬</div>
+                    <h4 class="text-xl font-bold mb-2">Meridional Acceptance</h4>
+                    <p class="text-stone-600 mb-4">
+                        Meridional rays define the standard <strong>Numerical Aperture (NA)</strong> and the classic
+                        acceptance cone. If a meridional ray enters outside this cone, it strikes the cladding at less
+                        than the critical angle and is lost to refraction.
+                    </p>
+                    <div class="bg-stone-100 p-3 rounded text-sm font-mono text-center border border-stone-200">
+                        NA = √(n₁² - n₂²) = sin(θₐ)
+                    </div>
+                </div>
+
+                <div class="data-card border-accent-orange/30 relative overflow-hidden">
+                    <div
+                        class="absolute top-0 right-0 bg-accent-orange text-white text-xs font-bold px-3 py-1 rounded-bl-lg uppercase tracking-wider">
+                        Increased Angle</div>
+                    <div class="text-accent-orange text-2xl mb-2">◭</div>
+                    <h4 class="text-xl font-bold mb-2">Skew Ray Acceptance</h4>
+                    <p class="text-stone-600 mb-4">
+                        Because skew rays strike the cladding boundary at a glancing angle rather than head-on, they can
+                        be accepted at incident angles <strong>significantly larger</strong> than the standard
+                        meridional acceptance cone.
+                    </p>
+                    <div
+                        class="bg-orange-50 p-3 rounded text-sm font-mono text-center border border-orange-200 text-orange-900">
+                        NA_skew = NA / cos(γ) &nbsp; <span class="text-xs text-orange-600">(where γ is the skew
+                            angle)</span>
+                    </div>
+                    <p
+                        class="text-sm text-stone-800 mt-4 bg-orange-50/70 p-3 rounded border-l-4 border-accent-orange leading-relaxed">
+                        <strong>Key Takeaway:</strong> Since cos(γ) is less than 1, the effective NA and acceptance
+                        angle are <strong>increased</strong>. Fibers capture more total light because these high-angle
+                        skew rays are successfully trapped by their helical geometry.
+                    </p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Bending and Wiggles Section -->
+        <section id="bending" class="space-y-6">
+            <h2 class="text-3xl font-semibold text-stone-900 border-b-2 border-accent-teal pb-2 inline-block">3. The
+                Effects of "Wiggles" and Bends</h2>
+            <p class="text-lg text-stone-600 max-w-4xl leading-relaxed">
+                An optical fiber relies on straight geometric boundaries for perfect total internal reflection. When the
+                fiber is bended, twisted, or experiences structural "wiggles", the internal angles of incidence change,
+                leading to power loss (attenuation) and mode mixing.
+            </p>
+
+            <!-- Macro vs Micro Bending Layout -->
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mt-6">
+                <div class="data-card border-t-4 border-accent-teal">
+                    <h4 class="text-xl font-bold mb-2 text-stone-800 flex items-center gap-2">
+                        <span class="text-2xl text-accent-teal">↩</span> Macrobending
+                    </h4>
+                    <p class="text-sm font-semibold text-stone-500 uppercase tracking-wider mb-2">Large-Scale Bends</p>
+                    <p class="text-stone-600 mb-4">
+                        Macrobends are large, visible curves in the fiber (e.g., wrapping fiber around a spool). As the
+                        fiber curves, the outer cladding boundary turns inward relative to the ray.
+                    </p>
+                    <ul class="list-none space-y-3 text-stone-600">
+                        <li class="flex items-start"><span class="text-accent-teal mr-2 mt-1">▪</span>
+                            <div><strong>Skew Ray Vulnerability:</strong> Remember the <strong>increased acceptance
+                                    angle</strong> from Section 2? Because skew rays travel at these extreme, high
+                                angles, they are already bouncing perilously close to the critical angle limit.</div>
+                        </li>
+                        <li class="flex items-start"><span class="text-accent-teal mr-2 mt-1">▪</span>
+                            <div><strong>"Killed" by the Bend:</strong> Even a slight macrobend changes the geometry
+                                enough to push these high-angle skew rays over the edge. They fail total internal
+                                reflection and are the first to "die" (escape into the cladding as lost radiation).
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+
+                <div class="data-card border-t-4 border-accent-orange">
+                    <h4 class="text-xl font-bold mb-2 text-stone-800 flex items-center gap-2">
+                        <span class="text-2xl text-accent-orange">〰</span> Microbending
+                    </h4>
+                    <p class="text-sm font-semibold text-stone-500 uppercase tracking-wider mb-2">Microscopic "Wiggles"
+                    </p>
+                    <p class="text-stone-600 mb-4">
+                        Microbends are tiny, localized deviations ("wiggles") in the core-cladding boundary, often
+                        caused by mechanical stress, temperature changes, or manufacturing imperfections.
+                    </p>
+                    <ul class="list-none space-y-3 text-stone-600">
+                        <li class="flex items-start"><span class="text-accent-orange mr-2 mt-1">▪</span>
+                            <div><strong>Mode Coupling:</strong> The wiggles act like scattering centers. They randomly
+                                alter the ray angles every time a ray hits a structural imperfection.</div>
+                        </li>
+                        <li class="flex items-start"><span class="text-accent-orange mr-2 mt-1">▪</span>
+                            <div><strong>Ray Conversion:</strong> Meridional rays can be scattered and converted into
+                                Skew rays. Conversely, guided rays can be scattered into extreme angles causing
+                                continuous attenuation.</div>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Interactive Chart Section -->
+            <div class="mt-8 data-card shadow-md">
+                <div class="flex flex-col md:flex-row justify-between items-start md:items-center mb-6">
+                    <div>
+                        <h3 class="text-xl font-bold text-stone-900">Attenuation vs. Bend Radius</h3>
+                        <p class="text-stone-500 text-sm mt-1">Simulated radiation loss as physical bending increases
+                            (Radius decreases).</p>
+                    </div>
+                </div>
+
+                <!-- Chart Container -->
+                <div class="chart-container">
+                    <canvas id="bendLossChart"></canvas>
+                </div>
+
+                <div
+                    class="mt-4 p-4 bg-stone-50 rounded border border-stone-200 text-sm text-stone-700 leading-relaxed">
+                    <strong>Chart Analysis:</strong> As the bend radius gets tighter (moving left on the X-axis),
+                    attenuation skyrockets. Notice that <strong>Skew Rays</strong> experience significant loss much
+                    earlier than Meridional rays. Because skew rays rely on their <em>increased</em>, extreme entry
+                    angles, the bending rapidly breaks their critical angle requirement, effectively "killing" them and
+                    stripping them from the fiber first.
+                </div>
+            </div>
+
+        </section>
+
+    </main>
+
+    <footer class="bg-stone-900 text-stone-400 py-8 mt-16 text-center">
+        <p>Interactive Fiber Optics Analysis • Built with HTML5 Canvas & Chart.js</p>
+    </footer>
+
+    <!-- JavaScript Logic -->
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+
+            // --- DATA & STATE MANAGEMENT ---
+            const state = {
+                activeRayType: 'meridional', // 'meridional' or 'skew'
+            };
+
+            const contentData = {
+                meridional: {
+                    title: "Meridional Rays",
+                    html: `
+                        <p class="mb-3"><strong>Path:</strong> Crosses the central optical axis of the fiber after every reflection.</p>
+                        <p class="mb-3"><strong>Geometry:</strong> Travels entirely within a single 2D plane down the length of the fiber. It bounces back and forth in a standard zigzag pattern.</p>
+                        <p><strong>Characteristics:</strong> Easy to analyze mathematically. These rays define the standard Acceptance Angle and Numerical Aperture of the fiber.</p>
+                    `
+                },
+                skew: {
+                    title: "Skew Rays",
+                    html: `
+                        <p class="mb-3"><strong>Path:</strong> Never intersects the central optical axis.</p>
+                        <p class="mb-3"><strong>Geometry:</strong> Travels in a 3D helical (spiral) path around the core. It bounces along the outer edges of the core-cladding boundary.</p>
+                        <p><strong>Characteristics:</strong> Can be accepted at angles larger than the normal acceptance cone. However, they undergo many more reflections per meter, leading to higher attenuation over long distances.</p>
+                    `
+                }
+            };
+
+
+            // --- UI INTERACTION LOGIC ---
+            const btnMeridional = document.getElementById('btn-meridional');
+            const btnSkew = document.getElementById('btn-skew');
+            const descriptionBox = document.getElementById('ray-description');
+
+            function updateUI() {
+                // Update buttons
+                if (state.activeRayType === 'meridional') {
+                    btnMeridional.classList.add('active');
+                    btnSkew.classList.remove('active');
+                    btnMeridional.style.backgroundColor = '#0f766e'; // teal
+                    btnMeridional.style.color = 'white';
+                    btnSkew.style.backgroundColor = 'white';
+                    btnSkew.style.color = '#292524';
+                } else {
+                    btnSkew.classList.add('active');
+                    btnMeridional.classList.remove('active');
+                    btnSkew.style.backgroundColor = '#ea580c'; // orange
+                    btnSkew.style.color = 'white';
+                    btnMeridional.style.backgroundColor = 'white';
+                    btnMeridional.style.color = '#292524';
+                }
+
+                // Update text
+                const data = contentData[state.activeRayType];
+                descriptionBox.innerHTML = `
+                    <h4 class="text-lg font-bold mb-2 ${state.activeRayType === 'meridional' ? 'text-accent-teal' : 'text-accent-orange'}">${data.title}</h4>
+                    <div class="text-sm text-stone-600 leading-relaxed">${data.html}</div>
+                `;
+
+                // Redraw canvases
+                drawFiberVisualization();
+                if (typeof update3DView === 'function') update3DView();
+            }
+
+            btnMeridional.addEventListener('click', () => { state.activeRayType = 'meridional'; updateUI(); });
+            btnSkew.addEventListener('click', () => { state.activeRayType = 'skew'; updateUI(); });
+
+
+            // --- CANVAS DRAWING LOGIC ---
+            const canvasSide = document.getElementById('fiberCanvasSide');
+            const ctxSide = canvasSide.getContext('2d');
+
+            const canvasTransverse = document.getElementById('fiberCanvasTransverse');
+            const ctxTransverse = canvasTransverse.getContext('2d');
+
+            function drawFiberVisualization() {
+                drawSideView();
+                drawTransverseView();
+            }
+
+            function drawSideView() {
+                const canvas = canvasSide;
+                const ctx = ctxSide;
+                const width = canvas.width;
+                const height = canvas.height;
+                // Calculate proportions
+                const coreTop = height * 0.2;
+                const coreBottom = height * 0.8;
+                const coreCenterY = height / 2;
+
+                // Clear canvas
+                ctx.clearRect(0, 0, width, height);
+
+                // Draw Background (Cladding)
+                ctx.fillStyle = '#1c1917'; // very dark grey
+                ctx.fillRect(0, 0, width, height);
+
+                // Draw Core
+                ctx.fillStyle = '#292524'; // slightly lighter grey for core
+                ctx.fillRect(0, coreTop, width, coreBottom - coreTop);
+
+                // Draw Cladding-Core Boundaries
+                ctx.strokeStyle = '#78716c';
+                ctx.lineWidth = 2;
+                ctx.beginPath();
+                ctx.moveTo(0, coreTop); ctx.lineTo(width, coreTop);
+                ctx.moveTo(0, coreBottom); ctx.lineTo(width, coreBottom);
+                ctx.stroke();
+
+                // Draw Central Axis (Dashed)
+                ctx.strokeStyle = '#57534e';
+                ctx.lineWidth = 1;
+                ctx.setLineDash([10, 10]);
+                ctx.beginPath();
+                ctx.moveTo(0, coreCenterY); ctx.lineTo(width, coreCenterY);
+                ctx.stroke();
+                ctx.setLineDash([]); // Reset dash
+
+                // Add entry light cone graphic on left
+                ctx.fillStyle = 'rgba(255, 255, 255, 0.05)';
+                ctx.beginPath();
+                ctx.moveTo(0, coreCenterY);
+                ctx.lineTo(-40, coreCenterY - 40);
+                ctx.lineTo(-40, coreCenterY + 40);
+                ctx.fill();
+
+                // Draw Rays Based on State
+                if (state.activeRayType === 'meridional') {
+                    drawMeridionalRaySide(ctx, width, height, coreTop, coreBottom, coreCenterY);
+                } else {
+                    drawSkewRaySide(ctx, width, height, coreTop, coreBottom, coreCenterY);
+                }
+
+                // Draw labels
+                ctx.fillStyle = '#a8a29e';
+                ctx.font = '12px sans-serif';
+                ctx.fillText("Cladding (n₂)", 20, coreTop / 2 + 5);
+                ctx.fillText("Core (n₁)", 20, coreTop + 20);
+                ctx.fillText("Cladding (n₂)", 20, coreBottom + (height - coreBottom) / 2 + 5);
+            }
+
+            function drawTransverseView() {
+                const canvas = canvasTransverse;
+                const ctx = ctxTransverse;
+                const w = canvas.width;
+                const h = canvas.height;
+                const cx = w / 2;
+                const cy = h / 2;
+
+                // Set sizes relative to container
+                const maxR = Math.min(w, h) / 2 - 15;
+                const coreR = maxR * 0.65;
+
+                ctx.clearRect(0, 0, w, h);
+
+                // Draw Cladding
+                ctx.fillStyle = '#1c1917';
+                ctx.beginPath();
+                ctx.arc(cx, cy, maxR, 0, 2 * Math.PI);
+                ctx.fill();
+                ctx.strokeStyle = '#3f3f46';
+                ctx.lineWidth = 2;
+                ctx.stroke();
+
+                // Draw Core
+                ctx.fillStyle = '#292524';
+                ctx.beginPath();
+                ctx.arc(cx, cy, coreR, 0, 2 * Math.PI);
+                ctx.fill();
+                ctx.strokeStyle = '#78716c';
+                ctx.lineWidth = 2;
+                ctx.stroke();
+
+                // Draw Center Axis Dot
+                ctx.fillStyle = '#a8a29e';
+                ctx.beginPath();
+                ctx.arc(cx, cy, 3, 0, 2 * Math.PI);
+                ctx.fill();
+
+                // Labels
+                ctx.fillStyle = '#a8a29e';
+                ctx.font = '11px sans-serif';
+                ctx.fillText("Core", cx + coreR / 2, cy - 5);
+                ctx.fillText("Clad", cx + maxR - 25, cy - 5);
+
+                // Draw Rays
+                if (state.activeRayType === 'meridional') {
+                    // Meridional ray crosses the center
+                    ctx.strokeStyle = '#2dd4bf'; // vibrant teal
+                    ctx.lineWidth = 3;
+                    ctx.shadowColor = '#2dd4bf';
+                    ctx.shadowBlur = 10;
+
+                    ctx.beginPath();
+                    const angle = Math.PI / 4;
+                    ctx.moveTo(cx - coreR * Math.cos(angle), cy - coreR * Math.sin(angle));
+                    ctx.lineTo(cx + coreR * Math.cos(angle), cy + coreR * Math.sin(angle));
+                    ctx.stroke();
+                    ctx.shadowBlur = 0;
+
+                    ctx.fillStyle = '#fff';
+                    ctx.fillText("Crosses center axis", cx - 45, cy + 25);
+
+                } else {
+                    // Skew ray bounces around, forming polygon
+                    ctx.strokeStyle = '#f97316'; // vibrant orange
+                    ctx.lineWidth = 3;
+                    ctx.shadowColor = '#f97316';
+                    ctx.shadowBlur = 10;
+
+                    const sides = 6; // Hexagonal bounce path inside core
+                    ctx.beginPath();
+                    for (let i = 0; i <= sides; i++) {
+                        const angle = i * (2 * Math.PI / sides);
+                        const px = cx + coreR * Math.cos(angle);
+                        const py = cy + coreR * Math.sin(angle);
+                        if (i === 0) ctx.moveTo(px, py);
+                        else ctx.lineTo(px, py);
+                    }
+                    ctx.stroke();
+                    ctx.shadowBlur = 0;
+
+                    // Draw the internal "caustic" circle
+                    const causticR = coreR * Math.cos(Math.PI / sides);
+                    ctx.strokeStyle = 'rgba(249, 115, 22, 0.4)';
+                    ctx.setLineDash([4, 4]);
+                    ctx.lineWidth = 1;
+                    ctx.beginPath();
+                    ctx.arc(cx, cy, causticR, 0, 2 * Math.PI);
+                    ctx.stroke();
+                    ctx.setLineDash([]);
+
+                    ctx.fillStyle = '#fff';
+                    ctx.fillText("Avoids center axis", cx - 40, cy + 15);
+                }
+            }
+
+            function drawMeridionalRaySide(ctx, w, h, top, bottom, center) {
+                ctx.strokeStyle = '#2dd4bf'; // vibrant teal
+                ctx.lineWidth = 3;
+                ctx.shadowColor = '#2dd4bf';
+                ctx.shadowBlur = 10;
+
+                ctx.beginPath();
+                let x = 0;
+                let y = center;
+                ctx.moveTo(x, y);
+
+                const stepX = 100;
+                let goingDown = true;
+
+                // Array to hold the points so we can draw the markers AFTER the main path
+                const reflectionPoints = [];
+
+                while (x < w) {
+                    x += stepX;
+                    if (goingDown) {
+                        y = bottom;
+                        ctx.lineTo(x, y);
+                        reflectionPoints.push({ x, y, isBottom: true });
+                    } else {
+                        y = top;
+                        ctx.lineTo(x, y);
+                        reflectionPoints.push({ x, y, isBottom: false });
+                    }
+                    goingDown = !goingDown;
+                }
+                ctx.stroke();
+                ctx.shadowBlur = 0;
+
+                // Draw reflection markers now that the main ray is safely stroked
+                reflectionPoints.forEach(p => {
+                    drawReflectionMarker(ctx, p.x, p.y, p.isBottom);
+                });
+            }
+
+            function drawSkewRaySide(ctx, w, h, top, bottom, center) {
+                ctx.strokeStyle = '#f97316'; // vibrant orange
+                ctx.lineWidth = 3;
+                ctx.shadowColor = '#f97316';
+                ctx.shadowBlur = 10;
+
+                // Accurately project a 3D polygonal helix into 2D straight lines
+                const R = (bottom - top) / 2;
+                const sides = 6;
+                const deltaTheta = (2 * Math.PI) / sides;
+                const stepX = 60; // longitudinal distance per bounce
+
+                ctx.beginPath();
+                let x = 0;
+                let theta = 15 * (Math.PI / 180); // 15 degree phase offset so it doesn't lay perfectly flat
+
+                ctx.moveTo(x, center + R * Math.sin(theta));
+
+                while (x < w) {
+                    x += stepX;
+                    theta += deltaTheta;
+                    let y = center + R * Math.sin(theta);
+                    ctx.lineTo(x, y);
+                }
+                ctx.stroke();
+                ctx.shadowBlur = 0;
+
+                ctx.fillStyle = '#fdba74';
+                ctx.font = '13px sans-serif';
+                ctx.fillText("2D Projection: Straight lines in 3D visually cross the center axis.", w / 2 - 180, bottom - 15);
+            }
+
+            function drawReflectionMarker(ctx, x, y, isBottom) {
+                ctx.save();
+                ctx.strokeStyle = 'rgba(255,255,255,0.3)';
+                ctx.lineWidth = 1;
+                ctx.setLineDash([2, 4]);
+                ctx.beginPath();
+                ctx.moveTo(x, y);
+                if (isBottom) {
+                    ctx.lineTo(x, y - 40);
+                } else {
+                    ctx.lineTo(x, y + 40);
+                }
+                ctx.stroke();
+                ctx.restore();
+            }
+
+            // --- THREE.JS 3D VIEW LOGIC ---
+            const threeContainer = document.getElementById('three-container');
+            const scene = new THREE.Scene();
+            scene.background = new THREE.Color('#1c1917');
+
+            const camera = new THREE.PerspectiveCamera(45, threeContainer.clientWidth / threeContainer.clientHeight, 0.1, 1000);
+            camera.position.set(0, 30, 200);
+
+            const renderer = new THREE.WebGLRenderer({ antialias: true });
+            renderer.setSize(threeContainer.clientWidth, threeContainer.clientHeight);
+            threeContainer.appendChild(renderer.domElement);
+
+            // Group to hold fiber for easy rotation
+            const fiberGroup = new THREE.Group();
+            scene.add(fiberGroup);
+
+            // Fiber Geometry constants
+            const coreRadius = 20;
+            const fiberLength = 180;
+
+            // 1. Draw Core Cylinder (Transparent)
+            const cylinderGeo = new THREE.CylinderGeometry(coreRadius, coreRadius, fiberLength, 32);
+            cylinderGeo.rotateZ(Math.PI / 2); // Align to X axis to match 2D views
+            const cylinderMat = new THREE.MeshBasicMaterial({
+                color: 0x3f3f46,
+                transparent: true,
+                opacity: 0.25,
+                depthWrite: false
+            });
+            const cylinder = new THREE.Mesh(cylinderGeo, cylinderMat);
+            fiberGroup.add(cylinder);
+
+            // 2. Draw Wireframe Outline
+            const edgesGeo = new THREE.EdgesGeometry(cylinderGeo);
+            const edgesMat = new THREE.LineBasicMaterial({ color: 0x57534e, transparent: true, opacity: 0.5 });
+            const cylinderEdges = new THREE.LineSegments(edgesGeo, edgesMat);
+            fiberGroup.add(cylinderEdges);
+
+            // 3. Draw Central Axis
+            const axisGeo = new THREE.BufferGeometry().setFromPoints([
+                new THREE.Vector3(-fiberLength / 2, 0, 0),
+                new THREE.Vector3(fiberLength / 2, 0, 0)
+            ]);
+            const axisMat = new THREE.LineDashedMaterial({ color: 0xa8a29e, dashSize: 4, gapSize: 4 });
+            const axisLine = new THREE.Line(axisGeo, axisMat);
+            axisLine.computeLineDistances();
+            fiberGroup.add(axisLine);
+
+            let rayLine3D = null;
+
+            // Update 3D path based on state
+            window.update3DView = function () {
+                if (rayLine3D) {
+                    fiberGroup.remove(rayLine3D);
+                    rayLine3D.geometry.dispose();
+                    rayLine3D.material.dispose();
+                }
+
+                const pts = [];
+                const startX = -fiberLength / 2;
+                const endX = fiberLength / 2;
+
+                if (state.activeRayType === 'meridional') {
+                    // Meridional: 2D Zigzag
+                    const material = new THREE.LineBasicMaterial({ color: 0x2dd4bf, linewidth: 2 });
+                    let x = startX;
+                    let bounceDist = 60;
+                    let sign = 1;
+
+                    pts.push(new THREE.Vector3(x, 0, 0)); // Start center
+                    x += bounceDist / 2;
+
+                    while (x <= endX) {
+                        pts.push(new THREE.Vector3(x, coreRadius * sign, 0));
+                        sign *= -1;
+                        x += bounceDist;
+                    }
+                    if (x - bounceDist < endX) {
+                        pts.push(new THREE.Vector3(endX, coreRadius * -sign * 0.5, 0));
+                    }
+
+                    const geometry = new THREE.BufferGeometry().setFromPoints(pts);
+                    rayLine3D = new THREE.Line(geometry, material);
+
+                } else {
+                    // Skew: 3D straight-line bounces (Step-index fiber)
+                    const material = new THREE.LineBasicMaterial({ color: 0xf97316, linewidth: 2 });
+                    let x = startX;
+                    let stepX = 35;
+                    let sides = 6;
+                    let angleStep = (2 * Math.PI) / sides;
+                    let angle = 15 * (Math.PI / 180); // Match the 15-deg phase offset of the 2D view
+
+                    // Draw straight lines connecting the points where it hits the cylinder wall
+                    pts.push(new THREE.Vector3(x, coreRadius * Math.cos(angle), coreRadius * Math.sin(angle)));
+                    while (x <= endX + stepX) {
+                        x += stepX;
+                        angle += angleStep;
+                        pts.push(new THREE.Vector3(x, coreRadius * Math.cos(angle), coreRadius * Math.sin(angle)));
+                    }
+
+                    const geometry = new THREE.BufferGeometry().setFromPoints(pts);
+                    rayLine3D = new THREE.Line(geometry, material);
+                }
+
+                fiberGroup.add(rayLine3D);
+            };
+
+            // Interactive Rotation (Mouse & Touch)
+            let isDragging = false;
+            let previousMousePosition = { x: 0, y: 0 };
+
+            threeContainer.addEventListener('mousedown', (e) => {
+                isDragging = true;
+                threeContainer.style.cursor = 'grabbing';
+                previousMousePosition = { x: e.clientX, y: e.clientY };
+            });
+
+            window.addEventListener('mouseup', () => {
+                isDragging = false;
+                threeContainer.style.cursor = 'grab';
+            });
+
+            window.addEventListener('mousemove', (e) => {
+                if (isDragging) {
+                    const deltaMove = { x: e.clientX - previousMousePosition.x, y: e.clientY - previousMousePosition.y };
+                    fiberGroup.rotation.y += deltaMove.x * 0.01;
+                    fiberGroup.rotation.z += deltaMove.y * 0.01;
+                    previousMousePosition = { x: e.clientX, y: e.clientY };
+                }
+            });
+
+            threeContainer.addEventListener('touchstart', (e) => {
+                isDragging = true;
+                previousMousePosition = { x: e.touches[0].clientX, y: e.touches[0].clientY };
+                // Prevent scrolling when interacting with 3D canvas on mobile
+                e.preventDefault();
+            }, { passive: false });
+
+            window.addEventListener('touchend', () => { isDragging = false; });
+
+            window.addEventListener('touchmove', (e) => {
+                if (isDragging) {
+                    const deltaMove = { x: e.touches[0].clientX - previousMousePosition.x, y: e.touches[0].clientY - previousMousePosition.y };
+                    fiberGroup.rotation.y += deltaMove.x * 0.01;
+                    fiberGroup.rotation.z += deltaMove.y * 0.01;
+                    previousMousePosition = { x: e.touches[0].clientX, y: e.touches[0].clientY };
+                }
+            }, { passive: false });
+
+            window.animate3D = function () {
+                requestAnimationFrame(window.animate3D);
+                // Gentle auto-rotation to indicate interactivity if not touched
+                if (!isDragging) {
+                    fiberGroup.rotation.x += 0.001;
+                    fiberGroup.rotation.y += 0.002;
+                }
+                renderer.render(scene, camera);
+            };
+
+            // --- CHART.JS LOGIC (Bend Loss) ---
+            const ctxChart = document.getElementById('bendLossChart').getContext('2d');
+
+            // Simulated Data: As bend radius decreases (tighter bend), loss increases exponentially.
+            // Skew rays (higher order) strip out earlier.
+            const bendRadii = ['40mm', '30mm', '20mm', '15mm', '10mm', '5mm', '2mm']; // X-axis (reversed conceptually, tighter to the right)
+            const meridionalLoss = [0.01, 0.02, 0.05, 0.1, 0.4, 2.5, 15.0];
+            const skewLoss = [0.05, 0.15, 0.8, 2.5, 8.0, 25.0, 40.0];
+
+            new Chart(ctxChart, {
+                type: 'line',
+                data: {
+                    labels: bendRadii,
+                    datasets: [
+                        {
+                            label: 'Meridional Ray Attenuation (dB)',
+                            data: meridionalLoss,
+                            borderColor: '#0f766e', // teal
+                            backgroundColor: 'rgba(15, 118, 110, 0.1)',
+                            borderWidth: 3,
+                            pointBackgroundColor: '#0f766e',
+                            pointRadius: 4,
+                            fill: true,
+                            tension: 0.4
+                        },
+                        {
+                            label: 'Skew Ray Attenuation (dB)',
+                            data: skewLoss,
+                            borderColor: '#ea580c', // orange
+                            backgroundColor: 'rgba(234, 88, 12, 0.1)',
+                            borderWidth: 3,
+                            pointBackgroundColor: '#ea580c',
+                            pointRadius: 4,
+                            fill: true,
+                            tension: 0.4
+                        }
+                    ]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false, // Important for fitting container
+                    interaction: {
+                        mode: 'index',
+                        intersect: false,
+                    },
+                    plugins: {
+                        legend: {
+                            position: 'top',
+                            labels: {
+                                font: { family: 'Inter', size: 13 }
+                            }
+                        },
+                        tooltip: {
+                            backgroundColor: 'rgba(28, 25, 23, 0.9)',
+                            titleFont: { size: 14, family: 'Inter' },
+                            bodyFont: { size: 13, family: 'Inter' },
+                            padding: 12,
+                            callbacks: {
+                                label: function (context) {
+                                    return context.dataset.label + ': ' + context.parsed.y + ' dB';
+                                }
+                            }
+                        }
+                    },
+                    scales: {
+                        x: {
+                            title: {
+                                display: true,
+                                text: 'Bend Radius (Decreasing ➔ Tighter Bend)',
+                                font: { weight: 'bold', family: 'Inter' }
+                            },
+                            grid: { display: false }
+                        },
+                        y: {
+                            title: {
+                                display: true,
+                                text: 'Signal Loss / Attenuation (dB)',
+                                font: { weight: 'bold', family: 'Inter' }
+                            },
+                            grid: {
+                                color: '#e7e5e4'
+                            },
+                            beginAtZero: true
+                        }
+                    }
+                }
+            });
+
+            // Initialize App
+            updateUI();
+
+            // Handle window resize for canvas redrawing
+            window.addEventListener('resize', () => {
+                // Very brief debounce
+                clearTimeout(window.resizeTimer);
+                window.resizeTimer = setTimeout(() => {
+                    // Update canvas internal resolutions to match displayed size dynamically
+                    const sideContainer = canvasSide.parentElement;
+                    canvasSide.width = sideContainer.clientWidth;
+                    canvasSide.height = sideContainer.clientHeight || 250;
+
+                    const transverseContainer = canvasTransverse.parentElement;
+                    canvasTransverse.width = transverseContainer.clientWidth;
+                    canvasTransverse.height = transverseContainer.clientHeight || 250;
+
+                    drawFiberVisualization();
+
+                    // Resize 3D viewer
+                    if (camera && renderer && threeContainer) {
+                        camera.aspect = threeContainer.clientWidth / threeContainer.clientHeight;
+                        camera.updateProjectionMatrix();
+                        renderer.setSize(threeContainer.clientWidth, threeContainer.clientHeight);
+                    }
+
+                }, 100);
+            });
+            // trigger initial sizing
+            window.dispatchEvent(new Event('resize'));
+
+        });
+
+        // Start Three.js Animation Loop on window load
+        window.onload = function () {
+            if (typeof window.animate3D === 'function') window.animate3D();
+        };
+    </script>
+</body>
+
+</html>

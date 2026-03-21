@@ -1,0 +1,7 @@
+- title: "A brief history of Timing"
+  year: 2026
+  authors: "N. Cartiglia"
+  journal: 'TIPP 2026'
+  url: "https://arxiv.org/abs/2603.10762"
+  notes: |
+    Review of usage of timing information in HEP experiments: various technologies, (sub)detectors, and experiments

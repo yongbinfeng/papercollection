@@ -44,6 +44,7 @@ A collection of papers I find interesting and want to keep handy for future refe
   {% assign category_slug = dataset[0] %}
   {% if category_slug == 'dream_publications' %}{% continue %}{% endif %}
   {% assign category_name = category_slug | replace: '_', ' ' | capitalize %}
+  {% if category_slug == 'generic_detector_rd' %}{% assign category_name = 'Generic Detector R&D' %}{% endif %}
   <a href="#{{ category_slug }}">{{ category_name }}</a>
 {% endfor %}
 </div>

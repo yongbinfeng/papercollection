@@ -5,3 +5,13 @@
   url: "https://arxiv.org/abs/2603.10762"
   notes: |
     Review of usage of timing information in HEP experiments: various technologies, (sub)detectors, and experiments
+
+- title: "Why (and How) LGADs Work: Ionization, Space Charge, and Gain Saturation"
+  year: 2026
+  authors: "N. Cartiglia et al."
+  journal: 'arXiv:2603.10841 [hep-ex]'
+  url: "https://arxiv.org/abs/2603.10841"
+  notes: |
+    * MIP deposits charge non-uniformly along the track
+    * Coulomb replusion between clusters make high (low) charge-density clusters experience stronger (weaker) repulsive force. smearing out the initial non-uniformity
+    * Large deposits are amplified less because of gain saturation (high density lowers the bias field), regularizing the signal

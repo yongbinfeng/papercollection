@@ -55,6 +55,7 @@ A collection of papers I find interesting and want to keep handy for future refe
   {% if category_slug == 'dream_publications' %}{% continue %}{% endif %}
   {% assign category_papers = dataset[1] %}
   {% assign category_name = category_slug | replace: '_', ' ' | capitalize %}
+  {% if category_slug == 'generic_detector_rd' %}{% assign category_name = 'Generic Detector R&D' %}{% endif %}
 
   <div class="category-section" id="{{ category_slug }}">
     <h2>{{ category_name }}</h2>

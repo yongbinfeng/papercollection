@@ -14,27 +14,29 @@ layout: default
     flex-wrap: wrap; 
     gap: 10px; 
     margin-bottom: 30px; 
-    position: sticky; 
+    position: sticky; /* Keeps the menu at the top when scrolling */
     top: 0; 
-    background: rgba(255, 255, 255, 0.95); /* Slight transparency */
+    background: rgba(255, 255, 255, 0.95); 
     padding: 15px 0; 
     z-index: 100; 
     border-bottom: 1px solid #eaeaea;
   }
+  
   .category-nav a { 
-    background-color: #f0fdfa; /* Very light teal */
-    color: #0f766e; /* Teal */
+    background-color: #f0f4f8;
+    color: #0366d6; 
     padding: 8px 16px; 
     border-radius: 20px; 
     text-decoration: none; 
     font-size: 0.9em; 
     font-weight: bold; 
-    border: 1px solid #ccfbf1; 
+    border: 1px solid #d1d5da; 
     transition: all 0.2s ease; 
   }
+  
   .category-nav a:hover { 
-    background-color: #0f766e; 
-    color: white;
+    background-color: #e1e4e8; 
+    color: #0366d6;
     text-decoration: none; 
   }
 

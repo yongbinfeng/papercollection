@@ -9,12 +9,42 @@ layout: default
   section { width: 100% !important; max-width: 1000px !important; float: none !important; margin: 0 auto !important; padding-top: 40px !important; }
   .wrapper { width: 95% !important; max-width: 1100px !important; }
 
-  .category-nav { display: flex; flex-wrap: wrap; gap: 10px; margin-bottom: 30px; }
-  .category-nav a { background-color: #f0f4f8; color: #0366d6; padding: 8px 16px; border-radius: 20px; text-decoration: none; font-size: 0.9em; font-weight: bold; border: 1px solid #d1d5da; transition: background-color 0.2s ease; }
-  .category-nav a:hover { background-color: #e1e4e8; text-decoration: none; }
+  .category-nav { 
+    display: flex; 
+    flex-wrap: wrap; 
+    gap: 10px; 
+    margin-bottom: 30px; 
+    position: sticky; 
+    top: 0; 
+    background: rgba(255, 255, 255, 0.95); /* Slight transparency */
+    padding: 15px 0; 
+    z-index: 100; 
+    border-bottom: 1px solid #eaeaea;
+  }
+  .category-nav a { 
+    background-color: #f0fdfa; /* Very light teal */
+    color: #0f766e; /* Teal */
+    padding: 8px 16px; 
+    border-radius: 20px; 
+    text-decoration: none; 
+    font-size: 0.9em; 
+    font-weight: bold; 
+    border: 1px solid #ccfbf1; 
+    transition: all 0.2s ease; 
+  }
+  .category-nav a:hover { 
+    background-color: #0f766e; 
+    color: white;
+    text-decoration: none; 
+  }
 
   #backToTopBtn { display: none; position: fixed; bottom: 30px; right: 30px; z-index: 99; font-size: 15px; font-weight: bold; border: none; outline: none; background-color: #0366d6; color: white; cursor: pointer; padding: 12px 18px; border-radius: 50px; box-shadow: 0px 4px 10px rgba(0,0,0,0.2); transition: background-color 0.3s; }
   #backToTopBtn:hover { background-color: #0056b3; }
+
+  #searchInput:focus {
+    border-color: #0f766e;
+    box-shadow: 0 0 0 3px rgba(15, 118, 110, 0.15);
+  }
 
   /* Styling to make Markdown bullet points look clean inside notes */
   .paper-notes p { margin-top: 4px; margin-bottom: 8px; }
@@ -37,7 +67,15 @@ A collection of papers I find interesting and want to keep handy for future refe
 
 <p style="font-size: 0.85em; color: #666; margin-top: -10px; margin-bottom: 25px;"><em>Last updated: {{ site.time | date: "%B %-d, %Y" }}</em></p>
 
-<input type="text" id="searchInput" onkeyup="searchPapers()" placeholder="Search for papers..." style="width: 100%; padding: 12px; margin-bottom: 20px; border: 1px solid #ccc; border-radius: 4px; font-size: 16px;">
+<div style="position: relative; margin-bottom: 30px; width: 100%;">
+  <span style="position: absolute; left: 16px; top: 14px; color: #9ca3af; font-size: 16px; pointer-events: none;">🔍</span>
+  
+  <input type="text" id="searchInput" onkeyup="searchPapers()" placeholder="Search publications by title, author, or keyword..." aria-label="Search publications" style="width: 100%; padding: 14px 20px 14px 45px; border: 1px solid #d1d5da; border-radius: 8px; font-size: 16px; transition: all 0.2s ease; box-shadow: 0 2px 4px rgba(0,0,0,0.02); box-sizing: border-box; outline: none;">
+</div>
+
+<div id="noResultsMessage" style="display: none; text-align: center; padding: 40px 20px; color: #6b7280; font-size: 1.1em; background: #f9fafb; border-radius: 8px; border: 1px dashed #d1d5da; margin-bottom: 30px;">
+  No publications found matching your search.
+</div>
 
 <div class="category-nav">
 {% for dataset in site.data %}

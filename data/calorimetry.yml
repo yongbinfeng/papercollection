@@ -56,3 +56,13 @@
     * Resolutions of EM and hadron showers in lead + scinillation "spaghetti" calorimeter
     * Corrections for various effects: attenuation, preshower detector, etc
     * e/h, asymmetric energy distribution in pion showers
+
+- title: "The KLOE electromagnetic calorimeter"
+  year: 2002
+  authors: "M. Adinolfi et al."
+  journal: '<i>Nucl. Instrum. Meth. A</i> <b>494</b> (2002) 326-331'
+  url: "https://doi.org/10.1016/S0168-9002(02)01488-2"
+  notes: |
+    * "Dual" readout: measure time on both sides of fiber ($t_{A,B}$); use average of $t_{A,B}$ as timing measurement, and $v*(t_A - t_B)$ as longitudinal position
+    * Excellent timing performance: $54 ps / \sqrt{E(GeV)} \oplus 50 ps$ 
+    * $K_L$ vertex reconstruction and lifetime measurements using track, energy, and timing information
